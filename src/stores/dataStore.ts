@@ -23,3 +23,4 @@ export const availablePokemon = [
 	'Glaceon'
 ];
 export const myPokemon = writable([]);
+export const isInBattle = writable(false);
