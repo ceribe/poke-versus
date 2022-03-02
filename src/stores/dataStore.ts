@@ -1,25 +1,25 @@
 import { writable } from 'svelte/store';
 
 export const availablePokemon = [
-	'Umbreon',
-	'Glaceon',
+	'Venusaur',
+	'Charizard',
+	'Blastoise',
+	'Gengar',
 	'Gyarados',
 	'Vaporeon',
 	'Snorlax',
-	'Mewtwo',
-	'Garchomp',
-	'Lugia',
-	'Gengar',
 	'Dragonite',
-	'Blastoise',
-	'Groudon',
-	'Charizard',
-	'Tyranitar',
-	'Rayquaza',
-	'Gardevoir',
+	'Mewtwo',
 	'Azumarill',
+	'Umbreon',
+	'Tyranitar',
+	'Lugia',
 	'Blaziken',
+	'Gardevoir',
 	'Kyogre',
-	'Venusaur'
+	'Groudon',
+	'Rayquaza',
+	'Garchomp',
+	'Glaceon'
 ];
 export const myPokemon = writable([]);
