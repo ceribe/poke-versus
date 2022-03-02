@@ -1,5 +1,3 @@
-import { writable } from 'svelte/store';
-
 enum Type {
 	None,
 	Grass,
@@ -16,7 +14,9 @@ enum Type {
 	Dragon,
 	Fairy,
 	Dark,
-	Rock
+	Rock,
+	Electric,
+	Ground
 }
 
 interface Attack {
@@ -179,63 +179,101 @@ export const availablePokemon: Pokemon[] = [
 			{ name: 'Stone Edge', power: 100, type: Type.Rock },
 			{ name: 'Crunch', power: 80, type: Type.Dark }
 		]
+	},
+	{
+		name: 'Lugia',
+		health: 322,
+		attack: 166,
+		defense: 281,
+		type1: Type.Psychic,
+		type2: Type.Flying,
+		attacks: [
+			{ name: 'Aeroblast', power: 100, type: Type.Flying },
+			{ name: 'Future Sight', power: 120, type: Type.Psychic }
+		]
+	},
+	{
+		name: 'Blaziken',
+		health: 270,
+		attack: 292,
+		defense: 148,
+		type1: Type.Fire,
+		type2: Type.Fighting,
+		attacks: [
+			{ name: 'Blaze Kick', power: 85, type: Type.Fire },
+			{ name: 'Close Combat', power: 120, type: Type.Fighting }
+		]
+	},
+	{
+		name: 'Gardevoir',
+		health: 246,
+		attack: 229,
+		defense: 221,
+		type1: Type.Psychic,
+		type2: Type.Fairy,
+		attacks: [
+			{ name: 'Dream Eater', power: 100, type: Type.Psychic },
+			{ name: 'Dazzling Dream', power: 80, type: Type.Fairy }
+		]
+	},
+	{
+		name: 'Kyogre',
+		health: 310,
+		attack: 274,
+		defense: 256,
+		type1: Type.Water,
+		type2: Type.None,
+		attacks: [
+			{ name: 'Water Spout', power: 150, type: Type.Water },
+			{ name: 'Thunderbolt', power: 90, type: Type.Electric }
+		]
+	},
+	{
+		name: 'Groudon',
+		health: 310,
+		attack: 274,
+		defense: 256,
+		type1: Type.Ground,
+		type2: Type.None,
+		attacks: [
+			{ name: 'Eruption', power: 150, type: Type.Fire },
+			{ name: 'Precipice Blades', power: 120, type: Type.Ground }
+		]
+	},
+	{
+		name: 'Rayquaza',
+		health: 320,
+		attack: 274,
+		defense: 166,
+		type1: Type.Dragon,
+		type2: Type.Flying,
+		attacks: [
+			{ name: 'Dragon Ascent', power: 120, type: Type.Flying },
+			{ name: 'Draco Meteor', power: 130, type: Type.Dragon }
+		]
+	},
+	{
+		name: 'Garchomp',
+		health: 326,
+		attack: 238,
+		defense: 175,
+		type1: Type.Dragon,
+		type2: Type.Ground,
+		attacks: [
+			{ name: 'Dragon Rush', power: 100, type: Type.Dragon },
+			{ name: 'Earth Power', power: 80, type: Type.Ground }
+		]
+	},
+	{
+		name: 'Glaceon',
+		health: 240,
+		attack: 238,
+		defense: 202,
+		type1: Type.Ice,
+		type2: Type.None,
+		attacks: [
+			{ name: 'Blizzard', power: 110, type: Type.Ice },
+			{ name: 'Dig', power: 80, type: Type.Ground }
+		]
 	}
-	// 	{name: 'Lugia',
-	// health: 000,
-	// attack: 000,
-	// defense: 000,
-	// type1:,
-	// type2:,
-	// attacks: []},
-	// 	{name: 'Blaziken',
-	// health: 000,
-	// attack: 000,
-	// defense: 000,
-	// type1:,
-	// type2:,
-	// attacks: []},
-	// 	{name: 'Gardevoir',
-	// health: 000,
-	// attack: 000,
-	// defense: 000,
-	// type1:,
-	// type2:,
-	// attacks: []},
-	// 	{name: 'Kyogre',
-	// health: 000,
-	// attack: 000,
-	// defense: 000,
-	// type1:,
-	// type2:,
-	// attacks: []},
-	// 	{name: 'Groudon',
-	// health: 000,
-	// attack: 000,
-	// defense: 000,
-	// type1:,
-	// type2:,
-	// attacks: []},
-	// 	{name: 'Rayquaza',
-	// health: 000,
-	// attack: 000,
-	// defense: 000,
-	// type1:,
-	// type2:,
-	// attacks: []},
-	// 	{name: 'Garchomp',
-	// health: 000,
-	// attack: 000,
-	// defense: 000,
-	// type1:,
-	// type2:,
-	// attacks: []},
-	// 	{name: 'Glaceon',
-	// health: 000,
-	// attack: 000,
-	// defense: 000,
-	// type1:,
-	// type2:,
-	// attacks: []},
 ];
-export const myPokemon = writable([]);
-export const isInBattle = writable(false);
