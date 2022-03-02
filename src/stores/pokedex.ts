@@ -1,4 +1,4 @@
-enum Type {
+export enum Type {
 	None,
 	Grass,
 	Fire,
@@ -19,13 +19,13 @@ enum Type {
 	Ground
 }
 
-interface Attack {
+export interface Attack {
 	name: string;
 	power: number;
 	type: Type;
 }
 
-interface Pokemon {
+export interface Pokemon {
 	name: string;
 	health: number;
 	attack: number;

@@ -1,7 +1,10 @@
-<script>
+<script lang="ts">
+	import type { Pokemon } from '../stores/pokedex';
+
 	import { myPokemon } from '../stores/dataStore';
 
-	export let pokemon;
+	export let pokemon: Pokemon;
+
 	function addToMyPokemon() {
 		if ($myPokemon.length < 3) {
 			myPokemon.set([...$myPokemon, pokemon]);
@@ -21,12 +24,12 @@
 		on:click={removeFromMyPokemon}
 	>
 		<img
-			src="https://img.pokemondb.net/sprites/diamond-pearl/normal/{pokemon.toLowerCase()}.png"
-			alt={pokemon}
+			src="https://img.pokemondb.net/sprites/diamond-pearl/normal/{pokemon.name.toLowerCase()}.png"
+			alt={pokemon.name}
 			class="h-24 select-none"
 		/>
 		<h2 class="font-semibold text-lg select-none">
-			{pokemon}
+			{pokemon.name}
 		</h2>
 	</button>
 {:else}
@@ -35,12 +38,12 @@
 		on:click={addToMyPokemon}
 	>
 		<img
-			src="https://img.pokemondb.net/sprites/diamond-pearl/normal/{pokemon.toLowerCase()}.png"
-			alt={pokemon}
+			src="https://img.pokemondb.net/sprites/diamond-pearl/normal/{pokemon.name.toLowerCase()}.png"
+			alt={pokemon.name}
 			class="h-24"
 		/>
 		<h2 class="font-semibold text-lg">
-			{pokemon}
+			{pokemon.name}
 		</h2>
 	</button>
 {/if}
