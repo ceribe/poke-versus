@@ -2,8 +2,12 @@
 	import BattleScreen from '../components/battleScreen.svelte';
 	import { isInBattle } from '../stores/dataStore';
 	import TeamSelection from '../components/teamSelection.svelte';
-	import TypeBanner from '../components/typeBanner.svelte';
-	import { Type } from '../stores/pokedex';
+	import { onMount } from 'svelte';
+	import { loadModels } from '../stores/models';
+
+	onMount(async () => {
+		loadModels();
+	});
 </script>
 
 <svelte:head>
@@ -19,5 +23,3 @@
 {:else}
 	<TeamSelection />
 {/if}
-
-<TypeBanner type={Type.Ice} />
