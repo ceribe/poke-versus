@@ -14,6 +14,7 @@ const config = {
 				fs: {
 					allow: ['..']
 				}
+				// host: true
 			}
 		}
 	}
