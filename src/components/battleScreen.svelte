@@ -10,8 +10,8 @@
 	export let opPokemon = writable(availablePokemon[16]);
 </script>
 
-<div class="w-5/6 h-5/6 static">
-	<SC.Canvas antialias background={new THREE.Color('papayawhip')}>
+<div>
+	<SC.Canvas antialias height={window.innerHeight} pixelRatio={0.75}>
 		<SC.Primitive
 			object={$models1.get($myPokemon.name)}
 			position={[0, 0, 15]}
@@ -29,6 +29,6 @@
 			mouseButtons={{ RIGHT: THREE.MOUSE.LEFT, MIDDLE: THREE.MOUSE.MIDDLE, LEFT: THREE.MOUSE.LEFT }}
 		/>
 		<SC.AmbientLight intensity={1.9} />
-		<SC.DirectionalLight intensity={0.3} position={[-2, 3, 2]} shadow={{ mapSize: [2048, 2048] }} />
+		<SC.DirectionalLight intensity={0.3} position={[-2, 3, 2]} />
 	</SC.Canvas>
 </div>
