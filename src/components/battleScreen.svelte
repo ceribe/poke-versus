@@ -67,6 +67,7 @@
 		maxPolarAngle={Math.PI * 0.41}
 		minDistance={20}
 		maxDistance={50}
+		mouseButtons={{ RIGHT: THREE.MOUSE.LEFT, MIDDLE: THREE.MOUSE.MIDDLE, LEFT: THREE.MOUSE.LEFT }}
 	/>
 	<SC.AmbientLight intensity={1.9} />
 	<SC.DirectionalLight intensity={0.3} position={[-2, 3, 2]} shadow={{ mapSize: [2048, 2048] }} />
