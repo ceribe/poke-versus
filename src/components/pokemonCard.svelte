@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { Pokemon } from '../stores/pokedex';
 
-	import { myPokemons } from '../stores/dataStore';
+	import { myPokemons } from '../stores/gameState';
 
 	export let pokemon: Pokemon;
 

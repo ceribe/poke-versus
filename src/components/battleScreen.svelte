@@ -3,7 +3,7 @@
 	import * as SC from 'svelte-cubed';
 	import { availablePokemon } from '../stores/pokedex';
 	import { writable } from 'svelte/store';
-	import { myPokemons } from '../stores/dataStore';
+	import { myPokemons } from '../stores/gameState';
 	import { models1, models2, arenaModel } from '../stores/models';
 
 	export let myPokemon = writable($myPokemons[0]);

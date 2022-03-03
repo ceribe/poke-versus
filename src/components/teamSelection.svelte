@@ -1,5 +1,5 @@
 <script>
-	import { isInBattle, myPokemons } from '../stores/dataStore';
+	import { isInBattle, myPokemons } from '../stores/gameState';
 	import PokemonCard from '../components/pokemonCard.svelte';
 	import { availablePokemon } from '../stores/pokedex';
 </script>
