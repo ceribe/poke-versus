@@ -1,5 +1,5 @@
 import { MTLLoader } from 'three/examples/jsm/loaders/MTLLoader.js';
-import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader';
+import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js';
 import { writable, type Writable } from 'svelte/store';
 import { availablePokemon } from '../stores/pokedex';
 
