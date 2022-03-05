@@ -13,8 +13,8 @@ const config = {
 			server: {
 				fs: {
 					allow: ['..']
-				}
-				// host: true
+				},
+				host: true
 			}
 		}
 	}
