@@ -12,11 +12,11 @@ export function loadModels() {
 	let tmpModels1 = new Map();
 	let tmpModels2 = new Map();
 	for (const pokemon of availablePokemon) {
-		mtlLoader.load(`../models/${pokemon.name}/${pokemon.name}.mtl`, function (materials) {
+		mtlLoader.load(`/models/${pokemon.name}/${pokemon.name}.mtl`, function (materials) {
 			materials.preload();
 			const loader = new OBJLoader();
 			loader.setMaterials(materials);
-			loader.load(`../models/${pokemon.name}/${pokemon.name}.obj`, (object) => {
+			loader.load(`/models/${pokemon.name}/${pokemon.name}.obj`, (object) => {
 				object.castShadow = true;
 				tmpModels1.set(pokemon.name, object);
 				models1.set(tmpModels1);
@@ -26,11 +26,11 @@ export function loadModels() {
 
 	//TODO Think of a better way to use the same object twice
 	for (const pokemon of availablePokemon) {
-		mtlLoader.load(`models/${pokemon.name}/${pokemon.name}.mtl`, function (materials) {
+		mtlLoader.load(`/models/${pokemon.name}/${pokemon.name}.mtl`, function (materials) {
 			materials.preload();
 			const loader = new OBJLoader();
 			loader.setMaterials(materials);
-			loader.load(`models/${pokemon.name}/${pokemon.name}.obj`, (object) => {
+			loader.load(`/models/${pokemon.name}/${pokemon.name}.obj`, (object) => {
 				object.castShadow = true;
 				tmpModels2.set(pokemon.name, object);
 				models2.set(tmpModels2);
