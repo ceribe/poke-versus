@@ -2,9 +2,13 @@
 
 ## How to run
 
+Install dependecies
+
 ```bash
 npm install
 ```
+
+Run on local machine
 
 ```bash
 npm run dev
