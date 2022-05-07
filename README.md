@@ -22,34 +22,32 @@ npm run dev -- --open
 This implementation is extremely unsecure. There is no server side validation done so for the whole system to work
 both players will have to play fair.
 
-All bits are adressed from the RIGHT so for eg. 0011 is 12. It is done in this way, because it makes parsing bits easier.
-
 ## 3. Communitcation protocol
 
 ### 3.1. Join Game (type = 0)
 
 Client sends this message after connecting to server's websocket. Message contains a list of chosen pokemon IDs.
 
-| Bits  | Bits Count | Content           |
-| ----- | ---------- | ----------------- |
-| 0-2   | 3          | Message type      |
-| 3-7   | 5          | First pokemon ID  |
-| 8-12  | 5          | Second pokemon ID |
-| 13-17 | 5          | Third pokemon ID  |
+| Byte | Content           |
+| ---- | ----------------- |
+| 0    | Message type      |
+| 1    | First pokemon ID  |
+| 2    | Second pokemon ID |
+| 3    | Third pokemon ID  |
 
 ### 3.2. Opponent Joined (type = 1)
 
 Server sends this message to both clients provided they both sent "Join Game" message first.
 Message contains a list of their opponent's pokemon IDs, game ID and a bit specifing which player goes first.
 
-| Bits  | Bits Count | Content            |
-| ----- | ---------- | ------------------ |
-| 0-2   | 3          | Message type       |
-| 3-7   | 5          | First pokemon ID  |
-| 8-12  | 5          | Second pokemon ID |
-| 13-17 | 5          | Third pokemon ID  |
-| 18-20 | 3          | Game ID            |
-| 21    | 1          | 1 for first player |
+| Byte | Content            |
+| ---- | ------------------ |
+| 0    | Message type       |
+| 1    | First pokemon ID   |
+| 2    | Second pokemon ID  |
+| 3    | Third pokemon ID   |
+| 4    | Game ID            |
+| 5    | 1 for first player |
 
 ### 3.3. Attack (type = 2)
 
@@ -58,35 +56,29 @@ Message contains amount of damage done and game ID. If this attack will
 cause the player to win then last bit is set to 1. Basing on this server
 will be able to clean up after game.
 
-| Bits | Bits Count | Content          |
-| ---- | ---------- | ---------------- |
-| 0-2  | 3          | Message type     |
-| 3-5  | 3          | Game ID          |
-| 6-14 | 9          | Amount of damage |
-| 15   | 1          | Game won         |
+| Byte | Content          |
+| ---- | ---------------- |
+| 0    | Message type     |
+| 1    | Game ID          |
+| 2    | Amount of damage |
+| 3    | Game won         |
 
 ### 3.4. Receive Damage (type = 3)
 
 Server sends this message to client after receiving "Attack" message from it's opponent.
 Message contains amount of damage done.
 
-| Bits | Bits Count | Content          |
-| ---- | ---------- | ---------------- |
-| 0-2  | 3          | Message type     |
-| 3-11 | 9          | Amount of damage |
+| Byte | Content          |
+| ---- | ---------------- |
+| 0    | Message type     |
+| 1    | Amount of damage |
 
 ### 3.5. Reconnect (type = 4)
 
 Clients sends this message to server after website is reloaded so server will update connection.
 Player number is 0 for the player which started and 1 for the other one.
 
-| Bits | Bits Count | Content          |
-| ---- | ---------- | ---------------- |
-| 0-2  | 3          | Message type     |
-| 3    | 1          | Player number    |
-
-## 4. Limits
-
-- Pokemon IDs - 31
-- Concurrent games - 7
-- Damage - 511
+| Byte | Content       |
+| ---- | ------------- |
+| 0    | Message type  |
+| 1    | Player Number |
