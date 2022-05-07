@@ -26,7 +26,7 @@ both players will have to play fair.
 
 ### 3.1. Join Game (type = 0)
 
-Client sends this message after connecting to servers websocket. Message contains a list of chosen pokemon IDs.
+Client sends this message after connecting to server's websocket. Message contains a list of chosen pokemon IDs.
 
 | Bits  | Bits Count | Content           |
 | ----- | ---------- | ----------------- |
@@ -37,8 +37,8 @@ Client sends this message after connecting to servers websocket. Message contain
 
 ### 3.2. Opponent Joined (type = 1)
 
-Server sends this message to both players provided they both sent "Join game" message first.
-Message contains a list of their opponent's pokemon IDs. Game ID and a bit specifing which player goes first.
+Server sends this message to both clients provided they both sent "Join Game" message first.
+Message contains a list of their opponent's pokemon IDs, game ID and a bit specifing which player goes first.
 
 | Bits  | Bits Count | Content            |
 | ----- | ---------- | ------------------ |
@@ -75,6 +75,6 @@ Message contains amount of damage done.
 
 ## 4. Limits
 
-Pokemon IDs - 31
-Amount of concurrent games - 7
-Damage done - 511
+- Pokemon IDs - 31
+- Concurrent games - 7
+- Damage - 511
