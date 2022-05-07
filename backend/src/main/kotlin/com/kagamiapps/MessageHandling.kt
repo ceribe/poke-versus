@@ -17,7 +17,6 @@ suspend fun processJoinGameMessage(player: Player, bytes: ByteArray) {
         waitingPlayers.clear()
         games[newGameId] = game
         sendOpponentJoinedMessages(game)
-
     }
 }
 
@@ -65,7 +64,6 @@ suspend fun sendReceiveDamageMessage(player: Player, amount: Int) {
     )
 
     player.session.send(Frame.Binary(true, message))
-
 }
 
 fun processReconnectMessage(player: Player, bytes: ByteArray) {

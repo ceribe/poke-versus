@@ -46,6 +46,7 @@ export interface Attack {
 }
 
 export interface Pokemon {
+	id: number;
 	name: string;
 	health: number;
 	attack: number;
@@ -57,6 +58,7 @@ export interface Pokemon {
 
 export const availablePokemon: Pokemon[] = [
 	{
+		id: 0,
 		name: 'Venusaur',
 		health: 270,
 		attack: 184,
@@ -69,6 +71,7 @@ export const availablePokemon: Pokemon[] = [
 		]
 	},
 	{
+		id: 1,
 		name: 'Charizard',
 		health: 266,
 		attack: 200,
@@ -81,6 +84,7 @@ export const availablePokemon: Pokemon[] = [
 		]
 	},
 	{
+		id: 2,
 		name: 'Blastoise',
 		health: 268,
 		attack: 157,
@@ -93,6 +97,7 @@ export const availablePokemon: Pokemon[] = [
 		]
 	},
 	{
+		id: 3,
 		name: 'Gengar',
 		health: 230,
 		attack: 238,
@@ -105,6 +110,7 @@ export const availablePokemon: Pokemon[] = [
 		]
 	},
 	{
+		id: 4,
 		name: 'Gyarados',
 		health: 300,
 		attack: 229,
@@ -117,6 +123,7 @@ export const availablePokemon: Pokemon[] = [
 		]
 	},
 	{
+		id: 5,
 		name: 'Vaporeon',
 		health: 370,
 		attack: 202,
@@ -129,6 +136,7 @@ export const availablePokemon: Pokemon[] = [
 		]
 	},
 	{
+		id: 6,
 		name: 'Snorlax',
 		health: 430,
 		attack: 202,
@@ -141,6 +149,7 @@ export const availablePokemon: Pokemon[] = [
 		]
 	},
 	{
+		id: 7,
 		name: 'Dragonite',
 		health: 292,
 		attack: 245,
@@ -153,6 +162,7 @@ export const availablePokemon: Pokemon[] = [
 		]
 	},
 	{
+		id: 8,
 		name: 'Mewtwo',
 		health: 322,
 		attack: 281,
@@ -165,6 +175,7 @@ export const availablePokemon: Pokemon[] = [
 		]
 	},
 	{
+		id: 9,
 		name: 'Azumarill',
 		health: 310,
 		attack: 94,
@@ -177,6 +188,7 @@ export const availablePokemon: Pokemon[] = [
 		]
 	},
 	{
+		id: 10,
 		name: 'Umbreon',
 		health: 300,
 		attack: 121,
@@ -189,6 +201,7 @@ export const availablePokemon: Pokemon[] = [
 		]
 	},
 	{
+		id: 11,
 		name: 'Tyranitar',
 		health: 310,
 		attack: 245,
@@ -201,6 +214,7 @@ export const availablePokemon: Pokemon[] = [
 		]
 	},
 	{
+		id: 12,
 		name: 'Lugia',
 		health: 322,
 		attack: 166,
@@ -213,6 +227,7 @@ export const availablePokemon: Pokemon[] = [
 		]
 	},
 	{
+		id: 13,
 		name: 'Blaziken',
 		health: 270,
 		attack: 292,
@@ -225,6 +240,7 @@ export const availablePokemon: Pokemon[] = [
 		]
 	},
 	{
+		id: 14,
 		name: 'Gardevoir',
 		health: 246,
 		attack: 229,
@@ -237,6 +253,7 @@ export const availablePokemon: Pokemon[] = [
 		]
 	},
 	{
+		id: 15,
 		name: 'Kyogre',
 		health: 310,
 		attack: 274,
@@ -249,6 +266,7 @@ export const availablePokemon: Pokemon[] = [
 		]
 	},
 	{
+		id: 16,
 		name: 'Groudon',
 		health: 310,
 		attack: 274,
@@ -261,6 +279,7 @@ export const availablePokemon: Pokemon[] = [
 		]
 	},
 	{
+		id: 17,
 		name: 'Rayquaza',
 		health: 320,
 		attack: 274,
@@ -273,6 +292,7 @@ export const availablePokemon: Pokemon[] = [
 		]
 	},
 	{
+		id: 18,
 		name: 'Garchomp',
 		health: 326,
 		attack: 238,
@@ -285,6 +305,7 @@ export const availablePokemon: Pokemon[] = [
 		]
 	},
 	{
+		id: 19,
 		name: 'Glaceon',
 		health: 240,
 		attack: 238,

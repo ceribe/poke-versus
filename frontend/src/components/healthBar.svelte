@@ -12,7 +12,7 @@
 		<div
 			class="bg-red-500 h-10 w-44 flex justify-center items-center text-white font-semibold text-lg rounded-xl border-4 border-black"
 		>
-			{pokemon.health} / {availablePokemon.filter((pk) => pk.name == pokemon.name)[0].health}
+			{pokemon.health} / {availablePokemon[pokemon.id].health}
 		</div>
 	</div>
 </div>
