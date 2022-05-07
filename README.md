@@ -1,24 +1,10 @@
-# create-svelte
+# Poke-Versus
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
-
-## Creating a project
-
-If you're seeing this, you've probably already done this step. Congrats!
+## How to run
 
 ```bash
-# create a new project in the current directory
-npm init svelte@next
-
-# create a new project in my-app
-npm init svelte@next my-app
+npm install
 ```
-
-> Note: the `@next` is temporary
-
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
 
 ```bash
 npm run dev
@@ -27,14 +13,28 @@ npm run dev
 npm run dev -- --open
 ```
 
-## Building
+## Communitcation protocol
 
-To create a production version of your app:
+### 1. Join game (type = 0)
 
-```bash
-npm run build
-```
+Client sends this message after connecting to servers websocket. Message contains a list of chosen pokemon IDs.
 
-You can preview the production build with `npm run preview`.
+| Bits  | Content           |
+| ----- | ----------------- |
+| 0     | Message type      |
+| 1-5   | First pokemon ID  |
+| 6-10  | Second pokemon ID |
+| 10-14 | Third pokemon ID  |
 
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+### 2. Opponent joined (type = 1)
+
+Server sends this message to both players provided they both sent "Join game" message first.
+Message contains a list of their opponent's pokemon IDs. Game ID and a bit specifing which player goes first.
+
+| Bits  | Content           |
+| ----- | ----------------- |
+| 0     | Message type      |
+| 1-5   | First pokemon ID  |
+| 6-10  | Second pokemon ID |
+| 10-14 | Third pokemon ID  |
+| 15    | Game ID           |
