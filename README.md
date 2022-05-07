@@ -31,9 +31,9 @@ Client sends this message after connecting to server's websocket. Message contai
 | Bits  | Bits Count | Content           |
 | ----- | ---------- | ----------------- |
 | 0-2   | 3          | Message type      |
-| 3-8   | 6          | First pokemon ID  |
-| 9-13  | 6          | Second pokemon ID |
-| 14-18 | 6          | Third pokemon ID  |
+| 3-7   | 5          | First pokemon ID  |
+| 8-12  | 5          | Second pokemon ID |
+| 13-17 | 5          | Third pokemon ID  |
 
 ### 3.2. Opponent Joined (type = 1)
 
@@ -43,11 +43,11 @@ Message contains a list of their opponent's pokemon IDs, game ID and a bit speci
 | Bits  | Bits Count | Content            |
 | ----- | ---------- | ------------------ |
 | 0-2   | 3          | Message type       |
-| 3-8   | 6          | First pokemon ID   |
-| 9-13  | 6          | Second pokemon ID  |
-| 14-18 | 6          | Third pokemon ID   |
-| 19-21 | 3          | Game ID            |
-| 22    | 1          | 1 for first player |
+| 3-7   | 5          | First pokemon ID  |
+| 8-12  | 5          | Second pokemon ID |
+| 13-17 | 5          | Third pokemon ID  |
+| 18-20 | 3          | Game ID            |
+| 21    | 1          | 1 for first player |
 
 ### 3.3. Attack (type = 2)
 
