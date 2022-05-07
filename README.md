@@ -62,6 +62,7 @@ will be able to clean up after game.
 | 1    | Game ID          |
 | 2    | Amount of damage |
 | 3    | Game won         |
+| 4    | Player Number    |
 
 ### 3.4. Receive Damage (type = 3)
 
@@ -82,3 +83,4 @@ Player number is 0 for the player which started and 1 for the other one.
 | ---- | ------------- |
 | 0    | Message type  |
 | 1    | Player Number |
+| 2    | Game ID       |
