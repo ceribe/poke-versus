@@ -73,6 +73,16 @@ Message contains amount of damage done.
 | 0-2  | 3          | Message type     |
 | 3-11 | 9          | Amount of damage |
 
+### 3.5. Reconnect (type = 4)
+
+Clients sends this message to server after website is reloaded so server will update connection.
+Player number is 0 for the player which started and 1 for the other one.
+
+| Bits | Bits Count | Content          |
+| ---- | ---------- | ---------------- |
+| 0-2  | 3          | Message type     |
+| 3    | 1          | Player number    |
+
 ## 4. Limits
 
 - Pokemon IDs - 31
