@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Type } from '../stores/pokedex';
+	import { Type } from '../consts/pokedex';
 
 	export let type: Type;
 </script>

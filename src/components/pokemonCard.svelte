@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Pokemon } from '../stores/pokedex';
+	import type { Pokemon } from '../consts/pokedex';
 
 	import { myPokemons } from '../stores/gameState';
 

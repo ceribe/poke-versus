@@ -1,7 +1,7 @@
 <script>
 	import { isInBattle, myPokemons } from '../stores/gameState';
 	import PokemonCard from '../components/pokemonCard.svelte';
-	import { availablePokemon } from '../stores/pokedex';
+	import { availablePokemon } from '../consts/pokedex';
 </script>
 
 <div class="bg-blue-400 horiz flex content-center">

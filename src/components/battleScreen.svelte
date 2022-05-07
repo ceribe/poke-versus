@@ -1,7 +1,7 @@
 <script>
 	import * as THREE from 'three';
 	import * as SC from 'svelte-cubed';
-	import { availablePokemon } from '../stores/pokedex';
+	import { availablePokemon } from '../consts/pokedex';
 	import { writable } from 'svelte/store';
 	import { myPokemons } from '../stores/gameState';
 	import { models1, models2, arenaModel } from '../stores/models';
