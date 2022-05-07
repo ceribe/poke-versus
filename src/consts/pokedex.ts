@@ -19,6 +19,26 @@ export enum Type {
 	Ground
 }
 
+export const typeColors = new Map<Type, string>([
+	[Type.Grass, 'bg-green-500'],
+	[Type.Fire, 'bg-orange-500'],
+	[Type.Water, 'bg-blue-500'],
+	[Type.Poison, 'bg-purple-600'],
+	[Type.Flying, 'bg-indigo-500'],
+	[Type.Ice, 'bg-cyan-300'],
+	[Type.Ghost, 'bg-purple-900'],
+	[Type.Steel, 'bg-gray-400'],
+	[Type.Normal, 'bg-stone-500'],
+	[Type.Fighting, 'bg-red-800'],
+	[Type.Psychic, 'bg-pink-500'],
+	[Type.Dragon, 'bg-violet-700'],
+	[Type.Fairy, 'bg-pink-300'],
+	[Type.Dark, 'bg-stone-700'],
+	[Type.Rock, 'bg-amber-500'],
+	[Type.Electric, 'bg-yellow-500'],
+	[Type.Ground, 'bg-amber-800']
+]);
+
 export interface Attack {
 	name: string;
 	power: number;
@@ -44,7 +64,7 @@ export const availablePokemon: Pokemon[] = [
 		type1: Type.Grass,
 		type2: Type.Poison,
 		attacks: [
-			{ name: 'Frenzy Plant', power: 150, type: Type.Poison },
+			{ name: 'Frenzy Plant', power: 150, type: Type.Grass },
 			{ name: 'Sludge Bomb', power: 90, type: Type.Poison }
 		]
 	},

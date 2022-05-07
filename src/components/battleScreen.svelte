@@ -5,6 +5,8 @@
 	import { writable } from 'svelte/store';
 	import { myPokemons } from '../stores/gameState';
 	import { models1, models2, arenaModel } from '../stores/models';
+	import AttackButton from './attackButton.svelte';
+	import HealthBar from './healthBar.svelte';
 
 	export let myPokemon = writable($myPokemons[0]);
 	export let opPokemon = writable(availablePokemon[16]);
@@ -30,4 +32,9 @@
 	<SC.AmbientLight intensity={1.9} />
 	<SC.DirectionalLight intensity={0.3} position={[-2, 3, 2]} />
 </SC.Canvas>
-<div class="absolute bottom-0 left-1/2">dfgdfg</div>
+<div class="absolute bottom-0 w-full flex justify-center gap-1 items-end">
+	<HealthBar pokemon={$myPokemon} />
+	<AttackButton type={$myPokemon.attacks[0].type} name={$myPokemon.attacks[0].name} />
+	<AttackButton type={$myPokemon.attacks[1].type} name={$myPokemon.attacks[1].name} />
+	<HealthBar pokemon={$opPokemon} />
+</div>
