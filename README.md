@@ -72,6 +72,7 @@ Message contains amount of damage done.
 | ---- | ---------------- |
 | 0    | Message type     |
 | 1    | Amount of damage |
+| 1    | Player Number    |
 
 ### 3.5. Reconnect (type = 4)
 
