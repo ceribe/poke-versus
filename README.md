@@ -2,6 +2,8 @@
 
 ## 1. How to run
 
+### 1.1 Frontend Server
+
 Install dependecies
 
 ```bash
@@ -16,6 +18,10 @@ npm run dev
 # or start the server and open the app in a new browser tab
 npm run dev -- --open
 ```
+
+### 1.2 Backend Server
+
+Open project in Intellij IDEA and run
 
 ## 2. Disclaimer
 
