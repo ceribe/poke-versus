@@ -9,7 +9,7 @@ import java.time.Duration
 
 fun main() {
     embeddedServer(Netty, port = 8128, host = "0.0.0.0") {
-        install(WebSockets){
+        install(WebSockets) {
             pingPeriod = Duration.ofSeconds(15)
             timeout = Duration.ofSeconds(15)
             maxFrameSize = Long.MAX_VALUE

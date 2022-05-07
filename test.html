@@ -16,9 +16,11 @@
     //Send mouse coordinates (2x short int) to the server as an array buffer
     const msg = new ArrayBuffer(4);
     const view = new DataView(msg);
-    const x = 0b100001000010000000;
-    console.log(x);
-    view.setInt32(0, x, false);
+    view.setInt8(0, 0, true);
+    view.setInt8(1, 5, true);
+    view.setInt8(2, 6, true);
+    view.setInt8(3, 7, true);
+
     websocket.send(msg);
   }
 
