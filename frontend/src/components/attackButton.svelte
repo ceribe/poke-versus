@@ -3,6 +3,7 @@
 	import type { Type } from '../consts/pokedex';
 	import TypeBanner from './typeBanner.svelte';
 
+	// TODO change to Attack
 	export let type: Type;
 	export let name: String;
 </script>

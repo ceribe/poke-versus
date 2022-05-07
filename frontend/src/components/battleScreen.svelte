@@ -1,15 +1,19 @@
 <script>
 	import * as THREE from 'three';
 	import * as SC from 'svelte-cubed';
-	import { availablePokemon } from '../consts/pokedex';
 	import { writable } from 'svelte/store';
-	import { myPokemons } from '../stores/gameState';
+	import {
+		currentEnemyPokemonIndex,
+		currentMyPokemonIndex,
+		enemyPokemons,
+		myPokemons
+	} from '../stores/gameState';
 	import { models1, models2, arenaModel } from '../stores/models';
 	import AttackButton from './attackButton.svelte';
 	import HealthBar from './healthBar.svelte';
 
-	export let myPokemon = writable($myPokemons[0]);
-	export let opPokemon = writable(availablePokemon[16]);
+	export let myPokemon = writable($myPokemons[$currentMyPokemonIndex]);
+	export let opPokemon = writable($enemyPokemons[$currentEnemyPokemonIndex]);
 </script>
 
 <SC.Canvas antialias height={window.innerHeight}>
