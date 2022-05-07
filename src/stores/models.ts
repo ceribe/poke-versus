@@ -4,13 +4,13 @@ import { writable, type Writable } from 'svelte/store';
 import { availablePokemon } from '../stores/pokedex';
 
 const mtlLoader = new MTLLoader();
-export let models1 = writable(new Map());
-export let models2 = writable(new Map());
-export let arenaModel: Writable<THREE.Object3D<THREE.Event>> = writable();
+export const models1 = writable(new Map());
+export const models2 = writable(new Map());
+export const arenaModel: Writable<THREE.Object3D<THREE.Event>> = writable();
 
 export function loadModels() {
-	let tmpModels1 = new Map();
-	let tmpModels2 = new Map();
+	const tmpModels1 = new Map();
+	const tmpModels2 = new Map();
 	for (const pokemon of availablePokemon) {
 		mtlLoader.load(`/models/${pokemon.name}/${pokemon.name}.mtl`, function (materials) {
 			materials.preload();
