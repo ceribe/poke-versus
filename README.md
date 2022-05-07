@@ -22,6 +22,8 @@ npm run dev -- --open
 This implementation is extremely unsecure. There is no server side validation done so for the whole system to work
 both players will have to play fair.
 
+All bits are adressed from the RIGHT so for eg. 0011 is 12. It is done in this way, because it makes parsing bits easier.
+
 ## 3. Communitcation protocol
 
 ### 3.1. Join Game (type = 0)
