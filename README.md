@@ -63,7 +63,7 @@ will be able to clean up after game.
 | 6-14 | 9          | Amount of damage |
 | 15   | 1          | Game won         |
 
-### 3.4. Recive Damage (type = 3)
+### 3.4. Receive Damage (type = 3)
 
 Server sends this message to client after receiving "Attack" message from it's opponent.
 Message contains amount of damage done.
