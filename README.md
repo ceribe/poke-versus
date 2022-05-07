@@ -83,3 +83,4 @@ Player number is 0 for the player which started and 1 for the other one.
 | ---- | ------------- |
 | 0    | Message type  |
 | 1    | Player Number |
+| 2    | Game ID       |
