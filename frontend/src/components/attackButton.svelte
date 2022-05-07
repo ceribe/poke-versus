@@ -17,4 +17,5 @@
 		</div>
 		<TypeBanner {type} />
 	</div>
+	<!-- TODO Add onclick which attacks oppoonent (gameState) which then sends message -->
 </button>

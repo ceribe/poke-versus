@@ -1,5 +1,7 @@
+import { reconnectToGame } from 'src/communication/connectionHandler';
 import { writable, type Writable } from 'svelte/store';
 import type { Pokemon } from '../consts/pokedex';
+import { getStore } from './utils';
 
 export const myPokemons: Writable<Pokemon[]> = writable([]);
 export const enemyPokemons: Writable<Pokemon[]> = writable([]);
@@ -9,6 +11,7 @@ export let playerNumber: number;
 export const isPlayerTurn = writable(false);
 export const opponentLost = writable(false);
 export const playerLost = writable(false);
+export const isWaitingForOpponent = writable(false);
 
 export function saveGameState() {
 	if (isInBattle) {
@@ -35,12 +38,8 @@ export function restoreGameState() {
 		gameID = JSON.parse(localStorage.getItem('gameID'));
 		playerNumber = JSON.parse(localStorage.getItem('playerNumber'));
 		isPlayerTurn.set(JSON.parse(localStorage.getItem('isPlayerTurn')));
-	}
-}
+		isInBattle.set(true);
 
-// Helper function used to get the value of a writable store
-function getStore(store) {
-	let $val;
-	store.subscribe(($) => ($val = $))();
-	return $val;
+		reconnectToGame();
+	}
 }

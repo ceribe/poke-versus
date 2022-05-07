@@ -32,6 +32,7 @@
 	<SC.AmbientLight intensity={1.9} />
 	<SC.DirectionalLight intensity={0.3} position={[-2, 3, 2]} />
 </SC.Canvas>
+
 <div class="absolute bottom-0 w-full flex justify-center gap-1 items-end">
 	<HealthBar pokemon={$myPokemon} />
 	<AttackButton type={$myPokemon.attacks[0].type} name={$myPokemon.attacks[0].name} />

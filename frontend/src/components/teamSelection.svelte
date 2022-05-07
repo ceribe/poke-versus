@@ -2,6 +2,7 @@
 	import { isInBattle, myPokemons } from '../stores/gameState';
 	import PokemonCard from '../components/pokemonCard.svelte';
 	import { availablePokemon } from '../consts/pokedex';
+	import { joinGame } from 'src/communication/connectionHandler';
 </script>
 
 <div class="bg-blue-400 horiz flex content-center">
@@ -17,7 +18,7 @@
 	</div>
 	<button
 		class="bg-blue-400 text-white pl-10 pr-10 pt-4 pb-4 rounded-3xl font-semibold text-2xl m-4 disabled:bg-gray-500 disabled:text-gray-300"
-		on:click={() => isInBattle.set(true)}
+		on:click={() => joinGame()}
 		disabled={$myPokemons.length != 3}
 	>
 		Start

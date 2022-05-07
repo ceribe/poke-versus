@@ -17,6 +17,8 @@
 
 {#if $isInBattle}
 	<BattleScreen />
+	<!-- TODO Add screen showing that player won/lost. After clicking player should be redirected to mainscreen and gamestate removed -->
 {:else}
 	<TeamSelection />
+	<!-- TODO Show overlay while waiting for opponent -->
 {/if}
