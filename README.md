@@ -62,6 +62,7 @@ will be able to clean up after game.
 | 1    | Game ID          |
 | 2    | Amount of damage |
 | 3    | Game won         |
+| 4    | Player Number    |
 
 ### 3.4. Receive Damage (type = 3)
 
@@ -72,7 +73,6 @@ Message contains amount of damage done.
 | ---- | ---------------- |
 | 0    | Message type     |
 | 1    | Amount of damage |
-| 1    | Player Number    |
 
 ### 3.5. Reconnect (type = 4)
 
