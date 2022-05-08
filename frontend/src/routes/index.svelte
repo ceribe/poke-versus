@@ -4,10 +4,14 @@
 	import TeamSelection from '../components/teamSelection.svelte';
 	import { onMount } from 'svelte';
 	import { loadModels } from '../stores/models';
+	import { initializeConnection } from '../communication/connectionHandler';
 
 	onMount(async () => {
 		loadModels();
-		restoreGameState();
+		initializeConnection();
+		setTimeout(() => {
+			restoreGameState();
+		}, 1000);
 	});
 </script>
 

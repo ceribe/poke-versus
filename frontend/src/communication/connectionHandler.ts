@@ -1,5 +1,7 @@
+import { availablePokemon, getPokemonById } from '../consts/pokedex';
 import {
 	currentMyPokemonIndex,
+	enemyPokemons,
 	gameID,
 	isInBattle,
 	isPlayerTurn,
@@ -27,19 +29,17 @@ function onMessage(event: MessageEvent) {
 	}
 }
 
-function initializeConnection() {
+export function initializeConnection() {
 	websocket = new WebSocket('ws://localhost:8128/pv');
 	websocket.binaryType = 'arraybuffer';
 	websocket.onmessage = onMessage;
 }
 
 export function joinGame() {
-	initializeConnection();
 	sendJoinGameMessage();
 }
 
 export function reconnectToGame() {
-	initializeConnection();
 	sendReconnectMessage();
 }
 
@@ -57,11 +57,22 @@ function sendJoinGameMessage() {
 }
 
 function processOpponentJoinedMessage(view: DataView) {
+	gameID.set(view.getUint8(4));
+	playerNumber.set(view.getUint8(5));
+	if (getStore(playerNumber) === 1) {
+		isPlayerTurn.set(true);
+		console.log("I'm first");
+	}
+
 	const firstPokemonID = view.getUint8(1);
 	const secondPokemonID = view.getUint8(2);
 	const thirdPokemonID = view.getUint8(3);
-	gameID.set(view.getUint8(4));
-	playerNumber.set(view.getUint8(5));
+	const firstPokemon = getPokemonById(firstPokemonID);
+	const secondPokemon = getPokemonById(secondPokemonID);
+	const thirdPokemon = getPokemonById(thirdPokemonID);
+	enemyPokemons.set([firstPokemon, secondPokemon, thirdPokemon]);
+
+	isWaitingForOpponent.set(false);
 	isInBattle.set(true);
 }
 
@@ -86,8 +97,13 @@ function processReceiveDamageMessage(view: DataView) {
 	const damageAmount = view.getUint8(1);
 	const pokemonIndex = getStore(currentMyPokemonIndex);
 	const pokemon = getStore(myPokemons)[pokemonIndex];
-	pokemon.currentHP -= damageAmount;
-	if (pokemon.currentHP <= 0) {
+	pokemon.health -= damageAmount;
+	console.log(damageAmount);
+	console.log(pokemon);
+	console.log(getStore(myPokemons));
+	// Update state
+	myPokemons.set(getStore(myPokemons));
+	if (pokemon.health <= 0) {
 		if (pokemonIndex === 2) {
 			playerLost.set(true);
 		} else {

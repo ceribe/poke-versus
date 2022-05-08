@@ -318,3 +318,7 @@ export const availablePokemon: Pokemon[] = [
 		]
 	}
 ];
+
+export function getPokemonById(id: number): Pokemon {
+	return Object.assign({}, availablePokemon[id]);
+}

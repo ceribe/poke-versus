@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Pokemon } from '../consts/pokedex';
+	import { getPokemonById, type Pokemon } from '../consts/pokedex';
 
 	import { myPokemons } from '../stores/gameState';
 
@@ -7,7 +7,7 @@
 
 	function addToMyPokemon() {
 		if ($myPokemons.length < 3) {
-			myPokemons.set([...$myPokemons, Object.assign({}, pokemon)]);
+			myPokemons.set([...$myPokemons, getPokemonById(pokemon.id)]);
 		} else {
 			alert('You can pick only 3 pokémon.');
 		}
@@ -19,8 +19,6 @@
 
 	function isSelected(chosenPokemons: Pokemon[]): boolean {
 		const chosenPokemonNames = chosenPokemons.map((pk) => pk.name);
-		console.log(chosenPokemonNames);
-		console.log(pokemon.name);
 		return chosenPokemonNames.includes(pokemon.name);
 	}
 </script>

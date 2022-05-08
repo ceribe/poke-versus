@@ -57,14 +57,17 @@ export function restoreGameState() {
 }
 
 export function doAttack(attack: Attack) {
+	console.log('Attacking');
 	isPlayerTurn.set(false);
 	const pokemonIndex = getStore(currentMyPokemonIndex);
 	const enemyPokemonIndex = getStore(currentEnemyPokemonIndex);
 	const pokemon = getStore(myPokemons)[pokemonIndex];
 	const enemyPokemon = getStore(enemyPokemons)[enemyPokemonIndex];
 	const damageAmount = calculateDamage(attack, pokemon, enemyPokemon);
-	enemyPokemon.currentHP -= damageAmount;
-	if (enemyPokemon.currentHP <= 0) {
+	enemyPokemon.health -= damageAmount;
+	// Update state
+	enemyPokemons.set(getStore(enemyPokemons));
+	if (enemyPokemon.health <= 0) {
 		if (enemyPokemonIndex === 2) {
 			opponentLost.set(true);
 		} else {

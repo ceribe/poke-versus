@@ -11,18 +11,18 @@
 	import { models1, models2, arenaModel } from '../stores/models';
 	import AttackButton from './attackButton.svelte';
 	import HealthBar from './healthBar.svelte';
-
-	export let myPokemon = writable($myPokemons[$currentMyPokemonIndex]);
-	export let opPokemon = writable($enemyPokemons[$currentEnemyPokemonIndex]);
 </script>
 
 <SC.Canvas antialias height={window.innerHeight}>
 	<SC.Primitive
-		object={$models1.get($myPokemon.name)}
+		object={$models1.get($myPokemons[$currentMyPokemonIndex].name)}
 		position={[0, 0, 15]}
 		rotation={[0, -3.14, 0]}
 	/>
-	<SC.Primitive object={$models2.get($opPokemon.name)} position={[0, 0, -15]} />
+	<SC.Primitive
+		object={$models2.get($enemyPokemons[$currentEnemyPokemonIndex].name)}
+		position={[0, 0, -15]}
+	/>
 
 	<SC.Primitive object={$arenaModel} scale={[5, 5, 5]} />
 	<SC.PerspectiveCamera position={[25, 20, 25]} fov={75} near={0.1} far={1000} />
@@ -38,8 +38,8 @@
 </SC.Canvas>
 
 <div class="absolute bottom-0 w-full flex justify-center gap-1 items-end">
-	<HealthBar pokemon={$myPokemon} />
-	<AttackButton attack={$myPokemon.attacks[0]} />
-	<AttackButton attack={$myPokemon.attacks[1]} />
-	<HealthBar pokemon={$opPokemon} />
+	<HealthBar pokemon={$myPokemons[$currentMyPokemonIndex]} />
+	<AttackButton attack={$myPokemons[$currentMyPokemonIndex].attacks[0]} />
+	<AttackButton attack={$myPokemons[$currentMyPokemonIndex].attacks[1]} />
+	<HealthBar pokemon={$enemyPokemons[$currentEnemyPokemonIndex]} />
 </div>

@@ -4,6 +4,7 @@ import com.kagamiapps.plugins.*
 import io.ktor.websocket.*
 
 suspend fun processJoinGameMessage(player: Player, bytes: ByteArray) {
+    println("Processing join game message")
     waitingPlayers += player
     with(player.pokemonIDs) {
         add(bytes[1])
@@ -13,6 +14,7 @@ suspend fun processJoinGameMessage(player: Player, bytes: ByteArray) {
 
     if (waitingPlayers.size == 2) {
         val newGameId = getLowestAvailableGameId()
+        println("Creating game $newGameId")
         val game = Game(waitingPlayers.first(), waitingPlayers.last(), newGameId)
         waitingPlayers.clear()
         games[newGameId] = game
@@ -21,6 +23,7 @@ suspend fun processJoinGameMessage(player: Player, bytes: ByteArray) {
 }
 
 suspend fun sendOpponentJoinedMessages(game: Game) {
+    println("Sending opponent joined messages")
     val message1 = byteArrayOf(
         1,
         game.player2.pokemonIDs[0],
@@ -50,6 +53,8 @@ suspend fun processAttackMessage(bytes: ByteArray) {
     val isGameWon = bytes[3].toInt() == 1
     val playerNumber = bytes[4].toInt()
 
+    println("Processing attack message (damage = $damage, isGameWon = $isGameWon, playerNumber = $playerNumber, gameId = $gameId)")
+
     sendReceiveDamageMessage(if (playerNumber == 0) game.player1 else game.player2, damage)
 
     if (isGameWon) {
@@ -58,6 +63,7 @@ suspend fun processAttackMessage(bytes: ByteArray) {
 }
 
 suspend fun sendReceiveDamageMessage(player: Player, amount: Int) {
+    println("Sending receive damage message")
     val message = byteArrayOf(
         3,
         amount.toByte(),
@@ -70,6 +76,7 @@ fun processReconnectMessage(player: Player, bytes: ByteArray) {
     val playerNumber = bytes[1].toInt()
     val gameId = bytes[2].toInt()
     val game = games[gameId] ?: return
+    println("Processing reconnect message (playerNumber = $playerNumber, gameId = $gameId)")
     if (playerNumber == 0) {
         game.player1 = player
     } else {

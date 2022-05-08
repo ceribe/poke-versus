@@ -7,8 +7,8 @@
 </script>
 
 <button
-	on:click={() => (!isPlayerTurn ? doAttack(attack) : 0)}
-	class={!isPlayerTurn ? 'opacity-30' : ''}
+	on:click={() => ($isPlayerTurn ? doAttack(attack) : 0)}
+	class={!$isPlayerTurn ? 'invisible' : ''}
 >
 	<div class="bg-slate-300 border-4 border-black p-2 rounded-lg w-52 flex items-center flex-col">
 		<div class="font-bold pb-2 text-lg">

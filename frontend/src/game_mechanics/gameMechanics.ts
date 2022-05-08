@@ -6,5 +6,5 @@ export function calculateDamage(
 	defendingPokemon: Pokemon
 ): number {
 	// TODO
-	return 0;
+	return 10;
 }
