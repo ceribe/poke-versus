@@ -1,7 +1,6 @@
 import { reconnectToGame, sendAttackMessage } from '../communication/connectionHandler';
-import { calculateDamage } from '../game_mechanics/gameMechanics';
 import { writable, type Writable } from 'svelte/store';
-import type { Attack, Pokemon } from '../consts/pokedex';
+import { calculateDamage, type Attack, type Pokemon } from '../consts/pokedex';
 import { getStore } from './utils';
 
 export const myPokemons: Writable<Pokemon[]> = writable([]);
