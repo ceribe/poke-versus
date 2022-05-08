@@ -7,6 +7,7 @@ suspend fun processJoinGameMessage(player: Player, bytes: ByteArray) {
     println("Processing join game message")
     waitingPlayers += player
     with(player.pokemonIDs) {
+        clear()
         add(bytes[1])
         add(bytes[2])
         add(bytes[3])
@@ -26,23 +27,26 @@ suspend fun sendOpponentJoinedMessages(game: Game) {
     println("Sending opponent joined messages")
     val message1 = byteArrayOf(
         1,
-        game.player2.pokemonIDs[0],
-        game.player2.pokemonIDs[1],
-        game.player2.pokemonIDs[2],
-        game.id.toByte(),
-        1,
-    )
-    game.player1.session.send(Frame.Binary(true, message1))
-
-    val message2 = byteArrayOf(
-        1,
         game.player1.pokemonIDs[0],
         game.player1.pokemonIDs[1],
         game.player1.pokemonIDs[2],
         game.id.toByte(),
         0,
     )
-    game.player2.session.send(Frame.Binary(true, message2))
+    game.player0.session.send(Frame.Binary(true, message1))
+
+    val message2 = byteArrayOf(
+        1,
+        game.player0.pokemonIDs[0],
+        game.player0.pokemonIDs[1],
+        game.player0.pokemonIDs[2],
+        game.id.toByte(),
+        1,
+    )
+    println(game.player0)
+    println(game.player1)
+
+    game.player1.session.send(Frame.Binary(true, message2))
 }
 
 
@@ -53,9 +57,9 @@ suspend fun processAttackMessage(bytes: ByteArray) {
     val isGameWon = bytes[3].toInt() == 1
     val playerNumber = bytes[4].toInt()
 
-    println("Processing attack message (damage = $damage, isGameWon = $isGameWon, playerNumber = $playerNumber, gameId = $gameId)")
+    println("Processing attack message (damage = ${damage.toUByte()}, isGameWon = $isGameWon, playerNumber = $playerNumber, gameId = $gameId)")
 
-    sendReceiveDamageMessage(if (playerNumber == 0) game.player1 else game.player2, damage)
+    sendReceiveDamageMessage(if (playerNumber == 1) game.player0 else game.player1, damage)
 
     if (isGameWon) {
         games.remove(game.id)
@@ -78,9 +82,9 @@ fun processReconnectMessage(player: Player, bytes: ByteArray) {
     val game = games[gameId] ?: return
     println("Processing reconnect message (playerNumber = $playerNumber, gameId = $gameId)")
     if (playerNumber == 0) {
-        game.player1 = player
+        game.player0 = player
     } else {
-        game.player2 = player
+        game.player1 = player
     }
 }
 

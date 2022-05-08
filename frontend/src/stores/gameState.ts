@@ -14,6 +14,7 @@ export const isPlayerTurn = writable(false);
 export const opponentLost = writable(false);
 export const playerLost = writable(false);
 export const isWaitingForOpponent = writable(false);
+export const isReconnecting = writable(false);
 
 export function saveGameState() {
 	if (isInBattle) {
@@ -29,19 +30,16 @@ export function saveGameState() {
 		localStorage.setItem('isPlayerTurn', JSON.stringify(getStore(isPlayerTurn)));
 		localStorage.setItem('isSaved', JSON.stringify(true));
 	} else {
-		localStorage.removeItem('myPokemons');
-		localStorage.removeItem('enemyPokemons');
-		localStorage.removeItem('currentMyPokemonIndex');
-		localStorage.removeItem('currentEnemyPokemonIndex');
-		localStorage.removeItem('gameID');
-		localStorage.removeItem('playerNumber');
-		localStorage.removeItem('isPlayerTurn');
-		localStorage.removeItem('isSaved');
+		removeSavedGameState();
 	}
 }
 
 export function restoreGameState() {
 	if (localStorage.getItem('isSaved')) {
+		isReconnecting.set(true);
+		setTimeout(() => {
+			isReconnecting.set(false);
+		}, 1000);
 		myPokemons.set(JSON.parse(localStorage.getItem('myPokemons')));
 		enemyPokemons.set(JSON.parse(localStorage.getItem('enemyPokemons')));
 		currentMyPokemonIndex.set(JSON.parse(localStorage.getItem('currentMyPokemonIndex')));
@@ -53,6 +51,31 @@ export function restoreGameState() {
 
 		reconnectToGame();
 	}
+}
+
+export function removeSavedGameState() {
+	localStorage.removeItem('myPokemons');
+	localStorage.removeItem('enemyPokemons');
+	localStorage.removeItem('currentMyPokemonIndex');
+	localStorage.removeItem('currentEnemyPokemonIndex');
+	localStorage.removeItem('gameID');
+	localStorage.removeItem('playerNumber');
+	localStorage.removeItem('isPlayerTurn');
+	localStorage.removeItem('isSaved');
+}
+
+export function clearGameState() {
+	myPokemons.set([]);
+	enemyPokemons.set([]);
+	currentMyPokemonIndex.set(0);
+	currentEnemyPokemonIndex.set(0);
+	gameID.set(0);
+	playerNumber.set(0);
+	isPlayerTurn.set(false);
+	isInBattle.set(false);
+	opponentLost.set(false);
+	playerLost.set(false);
+	isWaitingForOpponent.set(false);
 }
 
 export function doAttack(attack: Attack) {
@@ -67,7 +90,9 @@ export function doAttack(attack: Attack) {
 	enemyPokemons.set(getStore(enemyPokemons));
 	if (enemyPokemon.health <= 0) {
 		if (enemyPokemonIndex === 2) {
+			console.log('You won!');
 			opponentLost.set(true);
+			removeSavedGameState();
 		} else {
 			currentEnemyPokemonIndex.set(enemyPokemonIndex + 1);
 		}

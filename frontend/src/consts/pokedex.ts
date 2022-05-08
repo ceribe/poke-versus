@@ -7,8 +7,20 @@ export function calculateDamage(
 	attackingPokemon: Pokemon,
 	defendingPokemon: Pokemon
 ): number {
-	// TODO
-	return 10;
+	let multiplier = (attackingPokemon.attack - defendingPokemon.defense + 100) / 200.0;
+	multiplier = Math.min(Math.max(multiplier, 0.2), 2);
+	let damage = Math.sqrt(multiplier) * attack.power;
+
+	damage /= 2;
+	if (attackingPokemon.type1 === attack.type || attackingPokemon.type2 === attack.type) {
+		damage *= 1.5;
+	}
+	damage = damage * multipliers.get(attack.type).get(defendingPokemon.type1);
+	if (defendingPokemon.type2 !== Type.None) {
+		damage *= multipliers.get(attack.type).get(defendingPokemon.type2);
+	}
+	if (damage > 255) damage = 255;
+	return Math.ceil(damage);
 }
 
 export enum Type {

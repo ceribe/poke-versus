@@ -5,11 +5,15 @@ import {
 	gameID,
 	isInBattle,
 	isPlayerTurn,
+	isReconnecting,
 	isWaitingForOpponent,
 	myPokemons,
 	opponentLost,
 	playerLost,
-	playerNumber
+	playerNumber,
+	removeSavedGameState,
+	restoreGameState,
+	saveGameState
 } from '../stores/gameState';
 import { getStore } from '../stores/utils';
 
@@ -29,9 +33,21 @@ function onMessage(event: MessageEvent) {
 }
 
 export function initializeConnection() {
-	websocket = new WebSocket('ws://localhost:8128/pv');
+	// TODO extract IP to config file
+	websocket = new WebSocket('ws://192.168.0.38:8128/pv');
 	websocket.binaryType = 'arraybuffer';
 	websocket.onmessage = onMessage;
+	websocket.onopen = () => {
+		restoreGameState();
+		websocket.onopen = null;
+	};
+
+	if (localStorage.getItem('isSaved')) {
+		isReconnecting.set(true);
+		setTimeout(() => {
+			isReconnecting.set(false);
+		}, 1000);
+	}
 }
 
 export function joinGame() {
@@ -65,6 +81,9 @@ function processOpponentJoinedMessage(view: DataView) {
 	const firstPokemonID = view.getUint8(1);
 	const secondPokemonID = view.getUint8(2);
 	const thirdPokemonID = view.getUint8(3);
+	console.log(firstPokemonID);
+	console.log(secondPokemonID);
+	console.log(thirdPokemonID);
 	const firstPokemon = getPokemonById(firstPokemonID);
 	const secondPokemon = getPokemonById(secondPokemonID);
 	const thirdPokemon = getPokemonById(thirdPokemonID);
@@ -72,6 +91,7 @@ function processOpponentJoinedMessage(view: DataView) {
 
 	isWaitingForOpponent.set(false);
 	isInBattle.set(true);
+	saveGameState();
 }
 
 export function sendAttackMessage(damageAmount: number) {
@@ -88,11 +108,15 @@ export function sendAttackMessage(damageAmount: number) {
 	}
 	view.setUint8(4, getStore(playerNumber));
 
+	console.log(damageAmount);
 	websocket.send(msg);
+
+	if (!isGameOver) saveGameState();
 }
 
 function processReceiveDamageMessage(view: DataView) {
 	const damageAmount = view.getUint8(1);
+	console.log(damageAmount);
 	const pokemonIndex = getStore(currentMyPokemonIndex);
 	const pokemon = getStore(myPokemons)[pokemonIndex];
 	pokemon.health -= damageAmount;
@@ -101,19 +125,25 @@ function processReceiveDamageMessage(view: DataView) {
 	if (pokemon.health <= 0) {
 		if (pokemonIndex === 2) {
 			playerLost.set(true);
+			removeSavedGameState();
 		} else {
 			currentMyPokemonIndex.set(pokemonIndex + 1);
 		}
 	}
 	isPlayerTurn.set(true);
+	if (!getStore(playerLost)) saveGameState();
 }
 
 function sendReconnectMessage() {
 	const msg = new ArrayBuffer(3);
 	const view = new DataView(msg);
+	console.log('reconnecting');
+	console.log(getStore(playerNumber));
+	console.log(getStore(gameID));
 	view.setUint8(0, 4);
 	view.setUint8(1, getStore(playerNumber));
 	view.setUint8(2, getStore(gameID));
 
 	websocket.send(msg);
+	saveGameState();
 }

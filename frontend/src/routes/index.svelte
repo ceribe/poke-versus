@@ -1,6 +1,14 @@
 <script>
 	import BattleScreen from '../components/battleScreen.svelte';
-	import { isInBattle, restoreGameState } from '../stores/gameState';
+	import {
+		clearGameState,
+		isInBattle,
+		isReconnecting,
+		isWaitingForOpponent,
+		opponentLost,
+		playerLost,
+		restoreGameState
+	} from '../stores/gameState';
 	import TeamSelection from '../components/teamSelection.svelte';
 	import { onMount } from 'svelte';
 	import { loadModels } from '../stores/models';
@@ -9,9 +17,6 @@
 	onMount(async () => {
 		loadModels();
 		initializeConnection();
-		setTimeout(() => {
-			restoreGameState();
-		}, 1000);
 	});
 </script>
 
@@ -19,10 +24,36 @@
 	<title>Poké Versus</title>
 </svelte:head>
 
-{#if $isInBattle}
-	<BattleScreen />
-	<!-- TODO Add screen showing that player won/lost. After clicking player should be redirected to mainscreen and gamestate removed -->
+{#if $isReconnecting}
+	<div
+		class="bg-teal-500 text-white font-bold text-4xl p-4 w-screen h-screen flex justify-center items-center"
+	>
+		Reconnecting
+	</div>
+{:else if $isInBattle}
+	{#if $playerLost}
+		<button
+			class="bg-red-400 text-white font-bold text-4xl p-4 w-screen h-screen flex justify-center items-center"
+			on:click={() => clearGameState()}
+		>
+			You lost!
+		</button>
+	{:else if $opponentLost}
+		<button
+			class="bg-green-400 text-white font-bold text-4xl p-4 w-screen h-screen flex justify-center items-center"
+			on:click={() => clearGameState()}
+		>
+			You won!
+		</button>
+	{:else}
+		<BattleScreen />
+	{/if}
+{:else if $isWaitingForOpponent}
+	<div
+		class="bg-blue-500 text-white font-bold text-4xl p-4 w-screen h-screen flex justify-center items-center"
+	>
+		Waiting for opponent...
+	</div>
 {:else}
 	<TeamSelection />
-	<!-- TODO Show overlay while waiting for opponent -->
 {/if}

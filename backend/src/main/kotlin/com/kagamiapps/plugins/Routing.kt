@@ -9,7 +9,7 @@ import java.util.*
 import kotlin.collections.LinkedHashSet
 
 data class Player(val session: DefaultWebSocketSession, val pokemonIDs: MutableList<Byte> = mutableListOf())
-data class Game(var player1: Player, var player2: Player, val id: Int)
+data class Game(var player0: Player, var player1: Player, val id: Int)
 
 val games: MutableMap<Int, Game> = Collections.synchronizedMap(HashMap())
 val waitingPlayers: MutableSet<Player> = Collections.synchronizedSet(LinkedHashSet<Player>())
