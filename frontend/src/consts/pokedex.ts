@@ -16,7 +16,8 @@ export enum Type {
 	Dark,
 	Rock,
 	Electric,
-	Ground
+	Ground,
+	Bug
 }
 
 export const typeColors = new Map<Type, string>([
