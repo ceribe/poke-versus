@@ -16,7 +16,6 @@ import { getStore } from '../stores/utils';
 let websocket: WebSocket;
 
 function onMessage(event: MessageEvent) {
-	console.log(event.data);
 	const view = new DataView(event.data, 0);
 	const messageType = view.getUint8(0);
 	switch (messageType) {
@@ -61,7 +60,6 @@ function processOpponentJoinedMessage(view: DataView) {
 	playerNumber.set(view.getUint8(5));
 	if (getStore(playerNumber) === 1) {
 		isPlayerTurn.set(true);
-		console.log("I'm first");
 	}
 
 	const firstPokemonID = view.getUint8(1);
@@ -98,9 +96,6 @@ function processReceiveDamageMessage(view: DataView) {
 	const pokemonIndex = getStore(currentMyPokemonIndex);
 	const pokemon = getStore(myPokemons)[pokemonIndex];
 	pokemon.health -= damageAmount;
-	console.log(damageAmount);
-	console.log(pokemon);
-	console.log(getStore(myPokemons));
 	// Update state
 	myPokemons.set(getStore(myPokemons));
 	if (pokemon.health <= 0) {

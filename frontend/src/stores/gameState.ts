@@ -57,7 +57,6 @@ export function restoreGameState() {
 }
 
 export function doAttack(attack: Attack) {
-	console.log('Attacking');
 	isPlayerTurn.set(false);
 	const pokemonIndex = getStore(currentMyPokemonIndex);
 	const enemyPokemonIndex = getStore(currentEnemyPokemonIndex);
