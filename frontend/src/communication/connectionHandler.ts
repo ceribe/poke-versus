@@ -1,11 +1,15 @@
 import {
+	currentMyPokemonIndex,
 	gameID,
+	isInBattle,
+	isPlayerTurn,
 	isWaitingForOpponent,
 	myPokemons,
 	opponentLost,
+	playerLost,
 	playerNumber
 } from '../stores/gameState';
-import { getStore } from 'src/stores/utils';
+import { getStore } from '../stores/utils';
 
 let websocket: WebSocket;
 
@@ -53,14 +57,19 @@ function sendJoinGameMessage() {
 }
 
 function processOpponentJoinedMessage(view: DataView) {
-	//TODO
+	const firstPokemonID = view.getUint8(1);
+	const secondPokemonID = view.getUint8(2);
+	const thirdPokemonID = view.getUint8(3);
+	gameID.set(view.getUint8(4));
+	playerNumber.set(view.getUint8(5));
+	isInBattle.set(true);
 }
 
 export function sendAttackMessage(damageAmount: number) {
 	const msg = new ArrayBuffer(5);
 	const view = new DataView(msg);
 	view.setUint8(0, 2);
-	view.setUint8(1, gameID);
+	view.setUint8(1, getStore(gameID));
 	view.setUint8(2, damageAmount);
 	const isGameOver = getStore(opponentLost);
 	if (isGameOver) {
@@ -68,21 +77,32 @@ export function sendAttackMessage(damageAmount: number) {
 	} else {
 		view.setUint8(3, 0);
 	}
-	view.setUint8(4, playerNumber);
+	view.setUint8(4, getStore(playerNumber));
 
 	websocket.send(msg);
 }
 
 function processReceiveDamageMessage(view: DataView) {
-	//TODO
+	const damageAmount = view.getUint8(1);
+	const pokemonIndex = getStore(currentMyPokemonIndex);
+	const pokemon = getStore(myPokemons)[pokemonIndex];
+	pokemon.currentHP -= damageAmount;
+	if (pokemon.currentHP <= 0) {
+		if (pokemonIndex === 2) {
+			playerLost.set(true);
+		} else {
+			currentMyPokemonIndex.set(pokemonIndex + 1);
+		}
+	}
+	isPlayerTurn.set(true);
 }
 
 function sendReconnectMessage() {
 	const msg = new ArrayBuffer(3);
 	const view = new DataView(msg);
 	view.setUint8(0, 4);
-	view.setUint8(1, playerNumber);
-	view.setUint8(2, gameID);
+	view.setUint8(1, getStore(playerNumber));
+	view.setUint8(2, getStore(gameID));
 
 	websocket.send(msg);
 }

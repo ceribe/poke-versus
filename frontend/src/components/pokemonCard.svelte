@@ -7,18 +7,25 @@
 
 	function addToMyPokemon() {
 		if ($myPokemons.length < 3) {
-			myPokemons.set([...$myPokemons, pokemon]);
+			myPokemons.set([...$myPokemons, Object.assign({}, pokemon)]);
 		} else {
 			alert('You can pick only 3 pokémon.');
 		}
 	}
 
 	function removeFromMyPokemon() {
-		myPokemons.set([...$myPokemons.filter((pk) => pk != pokemon)]);
+		myPokemons.set([...$myPokemons.filter((pk) => pk.name != pokemon.name)]);
+	}
+
+	function isSelected(chosenPokemons: Pokemon[]): boolean {
+		const chosenPokemonNames = chosenPokemons.map((pk) => pk.name);
+		console.log(chosenPokemonNames);
+		console.log(pokemon.name);
+		return chosenPokemonNames.includes(pokemon.name);
 	}
 </script>
 
-{#if $myPokemons.includes(pokemon)}
+{#if isSelected($myPokemons)}
 	<button
 		class="p-4 bg-blue-400 text-gray-800 text-center rounded-3xl shadow-sm hover:shadow-md flex flex-col items-center w-50 select-none"
 		on:click={removeFromMyPokemon}

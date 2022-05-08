@@ -1,4 +1,5 @@
-import { reconnectToGame, sendAttackMessage } from 'src/communication/connectionHandler';
+import { reconnectToGame, sendAttackMessage } from '../communication/connectionHandler';
+import { calculateDamage } from '../game_mechanics/gameMechanics';
 import { writable, type Writable } from 'svelte/store';
 import type { Attack, Pokemon } from '../consts/pokedex';
 import { getStore } from './utils';
@@ -8,8 +9,8 @@ export const enemyPokemons: Writable<Pokemon[]> = writable([]);
 export const currentMyPokemonIndex: Writable<number> = writable(0);
 export const currentEnemyPokemonIndex: Writable<number> = writable(0);
 export const isInBattle = writable(false);
-export let gameID: number;
-export let playerNumber: number;
+export const gameID = writable(0);
+export const playerNumber = writable(0);
 export const isPlayerTurn = writable(false);
 export const opponentLost = writable(false);
 export const playerLost = writable(false);
@@ -24,8 +25,8 @@ export function saveGameState() {
 			'currentEnemyPokemonIndex',
 			JSON.stringify(getStore(currentEnemyPokemonIndex))
 		);
-		localStorage.setItem('gameID', JSON.stringify(gameID));
-		localStorage.setItem('playerNumber', JSON.stringify(playerNumber));
+		localStorage.setItem('gameID', JSON.stringify(getStore(gameID)));
+		localStorage.setItem('playerNumber', JSON.stringify(getStore(playerNumber)));
 		localStorage.setItem('isPlayerTurn', JSON.stringify(getStore(isPlayerTurn)));
 		localStorage.setItem('isSaved', JSON.stringify(true));
 	} else {
@@ -46,8 +47,8 @@ export function restoreGameState() {
 		enemyPokemons.set(JSON.parse(localStorage.getItem('enemyPokemons')));
 		currentMyPokemonIndex.set(JSON.parse(localStorage.getItem('currentMyPokemonIndex')));
 		currentEnemyPokemonIndex.set(JSON.parse(localStorage.getItem('currentEnemyPokemonIndex')));
-		gameID = JSON.parse(localStorage.getItem('gameID'));
-		playerNumber = JSON.parse(localStorage.getItem('playerNumber'));
+		gameID.set(JSON.parse(localStorage.getItem('gameID')));
+		playerNumber.set(JSON.parse(localStorage.getItem('playerNumber')));
 		isPlayerTurn.set(JSON.parse(localStorage.getItem('isPlayerTurn')));
 		isInBattle.set(true);
 
@@ -56,13 +57,13 @@ export function restoreGameState() {
 }
 
 export function doAttack(attack: Attack) {
+	isPlayerTurn.set(false);
 	const pokemonIndex = getStore(currentMyPokemonIndex);
 	const enemyPokemonIndex = getStore(currentEnemyPokemonIndex);
 	const pokemon = getStore(myPokemons)[pokemonIndex];
 	const enemyPokemon = getStore(enemyPokemons)[enemyPokemonIndex];
-	// TODO Calculate dmg
-	const damage = 10;
-	enemyPokemon.currentHP -= damage;
+	const damageAmount = calculateDamage(attack, pokemon, enemyPokemon);
+	enemyPokemon.currentHP -= damageAmount;
 	if (enemyPokemon.currentHP <= 0) {
 		if (enemyPokemonIndex === 2) {
 			opponentLost.set(true);
@@ -70,5 +71,5 @@ export function doAttack(attack: Attack) {
 			currentEnemyPokemonIndex.set(enemyPokemonIndex + 1);
 		}
 	}
-	sendAttackMessage(damage);
+	sendAttackMessage(damageAmount);
 }

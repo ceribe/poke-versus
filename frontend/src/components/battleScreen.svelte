@@ -39,7 +39,7 @@
 
 <div class="absolute bottom-0 w-full flex justify-center gap-1 items-end">
 	<HealthBar pokemon={$myPokemon} />
-	<AttackButton type={$myPokemon.attacks[0].type} name={$myPokemon.attacks[0].name} />
-	<AttackButton type={$myPokemon.attacks[1].type} name={$myPokemon.attacks[1].name} />
+	<AttackButton attack={$myPokemon.attacks[0]} />
+	<AttackButton attack={$myPokemon.attacks[1]} />
 	<HealthBar pokemon={$opPokemon} />
 </div>

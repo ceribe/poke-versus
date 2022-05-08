@@ -2,7 +2,7 @@
 	import { isInBattle, myPokemons } from '../stores/gameState';
 	import PokemonCard from '../components/pokemonCard.svelte';
 	import { availablePokemon } from '../consts/pokedex';
-	import { joinGame } from 'src/communication/connectionHandler';
+	import { joinGame } from '../communication/connectionHandler';
 </script>
 
 <div class="bg-blue-400 horiz flex content-center">

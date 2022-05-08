@@ -1,22 +1,19 @@
 <script lang="ts">
-	import { isPlayerTurn } from 'src/stores/gameState';
-	import type { Type } from '../consts/pokedex';
+	import { doAttack, isPlayerTurn } from '../stores/gameState';
+	import type { Attack, Type } from '../consts/pokedex';
 	import TypeBanner from './typeBanner.svelte';
 
-	// TODO change to Attack
-	export let type: Type;
-	export let name: String;
+	export let attack: Attack;
 </script>
 
-<button>
-	<div
-		class="bg-slate-300 border-4 border-black p-2 rounded-lg w-52 flex items-center flex-col 
-		{!isPlayerTurn ? 'invisible' : ''}"
-	>
+<button
+	on:click={() => (!isPlayerTurn ? doAttack(attack) : 0)}
+	class={!isPlayerTurn ? 'opacity-30' : ''}
+>
+	<div class="bg-slate-300 border-4 border-black p-2 rounded-lg w-52 flex items-center flex-col">
 		<div class="font-bold pb-2 text-lg">
-			{name}
+			{attack.name}
 		</div>
-		<TypeBanner {type} />
+		<TypeBanner type={attack.type} />
 	</div>
-	<!-- TODO Add onclick which attacks oppoonent (gameState) which then sends message -->
 </button>
