@@ -7,7 +7,6 @@
 		isWaitingForOpponent,
 		opponentLost,
 		playerLost,
-		restoreGameState
 	} from '../stores/gameState';
 	import TeamSelection from '../components/teamSelection.svelte';
 	import { onMount } from 'svelte';

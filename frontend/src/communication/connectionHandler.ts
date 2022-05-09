@@ -1,4 +1,4 @@
-import { availablePokemon, getPokemonById } from '../consts/pokedex';
+import { getPokemonById } from '../consts/pokedex';
 import {
 	currentMyPokemonIndex,
 	enemyPokemons,
@@ -81,9 +81,6 @@ function processOpponentJoinedMessage(view: DataView) {
 	const firstPokemonID = view.getUint8(1);
 	const secondPokemonID = view.getUint8(2);
 	const thirdPokemonID = view.getUint8(3);
-	console.log(firstPokemonID);
-	console.log(secondPokemonID);
-	console.log(thirdPokemonID);
 	const firstPokemon = getPokemonById(firstPokemonID);
 	const secondPokemon = getPokemonById(secondPokemonID);
 	const thirdPokemon = getPokemonById(thirdPokemonID);
