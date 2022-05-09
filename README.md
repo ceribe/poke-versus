@@ -32,7 +32,7 @@ both players will have to play fair.
 
 ### 3.1. Join Game (type = 0)
 
-Client sends this message after connecting to server's websocket. Message contains a list of chosen pokemon IDs.
+Client sends this message when he wants to start a game. Message contains a list of chosen pokemon IDs.
 
 | Byte | Content           |
 | ---- | ----------------- |
@@ -57,9 +57,9 @@ Message contains a list of their opponent's pokemon IDs, game ID and a bit speci
 
 ### 3.3. Attack (type = 2)
 
-Client sends this message to server when after chosing an attack.
+Client sends this message to server after chosing an attack.
 Message contains amount of damage done and game ID. If this attack will
-cause the player to win then last bit is set to 1. Basing on this server
+cause the player to win then Game Won byte is set to 1. Basing on this server
 will be able to clean up after game.
 
 | Byte | Content          |
