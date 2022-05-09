@@ -1,5 +1,8 @@
 # Poké Versus
 
+<img src="screenshots/ss_1.png">
+<img src="screenshots/ss_2.png">
+
 ## 1. How to run
 
 ### 1.1 Frontend Server
