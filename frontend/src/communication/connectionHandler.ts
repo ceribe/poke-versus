@@ -34,7 +34,7 @@ function onMessage(event: MessageEvent) {
 
 export function initializeConnection() {
 	// TODO extract IP to config file
-	websocket = new WebSocket('ws://192.168.0.38:8128/pv');
+	websocket = new WebSocket('ws://localhost:8128/pv');
 	websocket.binaryType = 'arraybuffer';
 	websocket.onmessage = onMessage;
 	websocket.onopen = () => {

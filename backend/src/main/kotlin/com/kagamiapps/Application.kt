@@ -1,9 +1,9 @@
 package com.kagamiapps
 
+import com.kagamiapps.plugins.configureRouting
+import io.ktor.server.application.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
-import com.kagamiapps.plugins.*
-import io.ktor.server.application.*
 import io.ktor.server.websocket.*
 import java.time.Duration
 

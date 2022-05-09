@@ -1,10 +1,8 @@
 package com.kagamiapps
 
-import com.kagamiapps.plugins.*
 import io.ktor.websocket.*
 
 suspend fun processJoinGameMessage(player: Player, bytes: ByteArray) {
-    println("Processing join game message")
     waitingPlayers += player
     with(player.pokemonIDs) {
         clear()
@@ -12,10 +10,11 @@ suspend fun processJoinGameMessage(player: Player, bytes: ByteArray) {
         add(bytes[2])
         add(bytes[3])
     }
+    log("Processing join game message. (Pokemon IDs: ${player.pokemonIDs})")
 
     if (waitingPlayers.size == 2) {
         val newGameId = getLowestAvailableGameId()
-        println("Creating game $newGameId")
+        log("Creating game. (Game ID: $newGameId)")
         val game = Game(waitingPlayers.first(), waitingPlayers.last(), newGameId)
         waitingPlayers.clear()
         games[newGameId] = game
@@ -24,28 +23,23 @@ suspend fun processJoinGameMessage(player: Player, bytes: ByteArray) {
 }
 
 suspend fun sendOpponentJoinedMessages(game: Game) {
-    println("Sending opponent joined messages")
-    val message1 = byteArrayOf(
-        1,
-        game.player1.pokemonIDs[0],
-        game.player1.pokemonIDs[1],
-        game.player1.pokemonIDs[2],
-        game.id.toByte(),
-        0,
-    )
+    fun composeOpponentJoinedMessage(player: Player, playerNumber: Int): ByteArray {
+        return byteArrayOf(
+            0x01,
+            player.pokemonIDs[0],
+            player.pokemonIDs[1],
+            player.pokemonIDs[2],
+            game.id.toByte(),
+            playerNumber.toByte()
+        )
+    }
+
+    log("Sending opponent joined messages to players. (Game ID: ${game.id})")
+
+    val message1 = composeOpponentJoinedMessage(game.player1, 0)
     game.player0.session.send(Frame.Binary(true, message1))
 
-    val message2 = byteArrayOf(
-        1,
-        game.player0.pokemonIDs[0],
-        game.player0.pokemonIDs[1],
-        game.player0.pokemonIDs[2],
-        game.id.toByte(),
-        1,
-    )
-    println(game.player0)
-    println(game.player1)
-
+    val message2 = composeOpponentJoinedMessage(game.player0, 1)
     game.player1.session.send(Frame.Binary(true, message2))
 }
 
@@ -53,11 +47,11 @@ suspend fun sendOpponentJoinedMessages(game: Game) {
 suspend fun processAttackMessage(bytes: ByteArray) {
     val gameId = bytes[1].toInt()
     val game = games[gameId] ?: return
-    val damage = bytes[2].toInt()
+    val damage = bytes[2].toUByte()
     val isGameWon = bytes[3].toInt() == 1
     val playerNumber = bytes[4].toInt()
 
-    println("Processing attack message (damage = ${damage.toUByte()}, isGameWon = $isGameWon, playerNumber = $playerNumber, gameId = $gameId)")
+    log("Processing attack message. (Damage: ${damage}, Is Game Won: $isGameWon, Player Number: $playerNumber, Game ID: $gameId)")
 
     sendReceiveDamageMessage(if (playerNumber == 1) game.player0 else game.player1, damage)
 
@@ -66,12 +60,9 @@ suspend fun processAttackMessage(bytes: ByteArray) {
     }
 }
 
-suspend fun sendReceiveDamageMessage(player: Player, amount: Int) {
-    println("Sending receive damage message")
-    val message = byteArrayOf(
-        3,
-        amount.toByte(),
-    )
+suspend fun sendReceiveDamageMessage(player: Player, damageAmount: UByte) {
+    log("Sending receive damage message. (Damage: ${damageAmount})")
+    val message = byteArrayOf(3, damageAmount.toByte())
 
     player.session.send(Frame.Binary(true, message))
 }
@@ -80,7 +71,9 @@ fun processReconnectMessage(player: Player, bytes: ByteArray) {
     val playerNumber = bytes[1].toInt()
     val gameId = bytes[2].toInt()
     val game = games[gameId] ?: return
-    println("Processing reconnect message (playerNumber = $playerNumber, gameId = $gameId)")
+
+    log("Processing reconnect message. (Player Number: $playerNumber, Game ID: $gameId)")
+
     if (playerNumber == 0) {
         game.player0 = player
     } else {
