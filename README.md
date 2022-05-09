@@ -41,7 +41,7 @@ Open project in Intellij IDEA and run
 This implementation is extremely unsecure. There is no server side validation done so for the whole system to work
 both players will have to play fair.
 
-This is by no means a finished game as there is no animations, sounds and even some of the core features like swapping to a different pokemon are missing.
+This is by no means a finished game as there is no animations, sounds and it is even missing some of the core features like swapping to a different pokemon.
 
 I do not own any of the assets used.
 
