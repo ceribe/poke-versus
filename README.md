@@ -3,6 +3,17 @@
 <img src="screenshots/ss_1.png">
 <img src="screenshots/ss_2.png">
 
+## 0. Introduction
+
+Poké Versus is a simple 1v1 pokemon game I decided to make as my websocket project for an university class.
+Each player using a website connects to the  server via a websocket. Server then connects two players
+and acts as a middle ground passing messages between them. Server can handle up to 256 concurrent games.
+
+Frontend is written in Svelte. My language of choice is TypeScript. To not have to deal with plain CSS I used TailwindCSS. Game scene is rendered
+with Three.js and Svelte Cubed.
+
+Backend is written in Kotlin + KTOR.
+
 ## 1. How to run
 
 ### 1.1 Frontend Server
@@ -30,15 +41,19 @@ Open project in Intellij IDEA and run
 This implementation is extremely unsecure. There is no server side validation done so for the whole system to work
 both players will have to play fair.
 
+This is by no means a finished game as there is no animations, sounds and even some of the core features like swapping to a different pokemon are missing.
+
+I do not own any of the assets used.
+
 ## 3. Communitcation protocol
 
 ### 3.0 Values
 
 | Name          | Meaning                                   | Possible Values |
 | ------------- | ----------------------------------------- | --------------- |
-| Message type  | Value specyfing which message was received | 0..4            |
+| Message type  | Value specyfing which message was received| 0..4            |
 | Pokemon ID    | Index specifying a species of pokemon     | 0..24           |
-| Game ID       | Number used to differentiate games         | 0..255          |
+| Game ID       | Number used to differentiate games        | 0..255          |
 | Player Number | Player with number 1 starts               | 0 or 1          |
 
 ### 3.1. Join Game Message (type = 0)
