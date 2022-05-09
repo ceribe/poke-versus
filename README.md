@@ -4,19 +4,18 @@
 
 ### 1.1 Frontend Server
 
-Install dependecies
+#### 1.1.1 Enter "frontend" directory
+
+#### 1.1.2 Install dependecies
 
 ```bash
 npm install
 ```
 
-Run on local machine
+#### 1.1.3 Run on local machine
 
 ```bash
 npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
 ```
 
 ### 1.2 Backend Server
@@ -58,7 +57,7 @@ Message contains a list of their opponent's pokemon IDs, game ID and a bit speci
 ### 3.3. Attack (type = 2)
 
 Client sends this message to server after chosing an attack.
-Message contains amount of damage done and game ID. If this attack will
+Message contains amount of damage done, game ID and player number. If this attack will
 cause the player to win then Game Won byte is set to 1. Basing on this server
 will be able to clean up after game.
 
@@ -72,7 +71,7 @@ will be able to clean up after game.
 
 ### 3.4. Receive Damage (type = 3)
 
-Server sends this message to client after receiving "Attack" message from it's opponent.
+Server sends this message to client after receiving "Attack" message from that player's opponent.
 Message contains amount of damage done.
 
 | Byte | Content          |
