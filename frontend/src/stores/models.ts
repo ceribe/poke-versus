@@ -24,7 +24,6 @@ export function loadModels() {
 		});
 	}
 
-	//TODO Think of a better way to use the same object twice
 	for (const pokemon of availablePokemon) {
 		mtlLoader.load(`/models/${pokemon.name}/${pokemon.name}.mtl`, function (materials) {
 			materials.preload();
