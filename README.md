@@ -38,7 +38,7 @@ both players will have to play fair.
 | Game ID       | Number used to differentiate games         | 0..255          |
 | Player Number | Player with number 1 starts               | 0 or 1          |
 
-### 3.1. Join Game (type = 0)
+### 3.1. Join Game Message (type = 0)
 
 Client sends this message when he wants to start a game. Message contains a list of chosen pokemon IDs.
 
@@ -49,7 +49,7 @@ Client sends this message when he wants to start a game. Message contains a list
 | 2    | Second pokemon ID |
 | 3    | Third pokemon ID  |
 
-### 3.2. Opponent Joined (type = 1)
+### 3.2. Opponent Joined Message (type = 1)
 
 Server sends this message to both clients provided they both sent "Join Game" message first.
 Message contains a list of their opponent's pokemon IDs.
@@ -63,7 +63,7 @@ Message contains a list of their opponent's pokemon IDs.
 | 4    | Game ID            |
 | 5    | Player Number      |
 
-### 3.3. Attack (type = 2)
+### 3.3. Attack Message (type = 2)
 
 Client sends this message to server after chosing an attack. If this attack will
 cause the player to win then Game Won byte is set to 1. Using this server
@@ -77,7 +77,7 @@ will be able to clean up after game.
 | 3    | Game won         |
 | 4    | Player Number    |
 
-### 3.4. Receive Damage (type = 3)
+### 3.4. Receive Damage Message (type = 3)
 
 Server sends this message to client after receiving "Attack" message from that player's opponent.
 
@@ -86,7 +86,7 @@ Server sends this message to client after receiving "Attack" message from that p
 | 0    | Message type     |
 | 1    | Amount of damage |
 
-### 3.5. Reconnect (type = 4)
+### 3.5. Reconnect Message (type = 4)
 
 Clients sends this message to server after website is reloaded so server will update connection.
 
