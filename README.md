@@ -1,4 +1,4 @@
-# Poke-Versus
+# Poké Versus
 
 ## 1. How to run
 
@@ -29,6 +29,15 @@ both players will have to play fair.
 
 ## 3. Communitcation protocol
 
+### 3.0 Values
+
+| Value         | Meaning                                   |
+| ------------- | ----------------------------------------- |
+| Message type  | Value specyfing which message was received |
+| Pokemon ID    | Index specifying a species of pokemon     |
+| Game ID       | Number used to differentiate games         |
+| Player Number | Each game has to players (0 or 1)         |
+
 ### 3.1. Join Game (type = 0)
 
 Client sends this message when he wants to start a game. Message contains a list of chosen pokemon IDs.
@@ -43,7 +52,7 @@ Client sends this message when he wants to start a game. Message contains a list
 ### 3.2. Opponent Joined (type = 1)
 
 Server sends this message to both clients provided they both sent "Join Game" message first.
-Message contains a list of their opponent's pokemon IDs, game ID and a bit specifing which player goes first.
+Message contains a list of their opponent's pokemon IDs.
 
 | Byte | Content            |
 | ---- | ------------------ |
@@ -52,13 +61,12 @@ Message contains a list of their opponent's pokemon IDs, game ID and a bit speci
 | 2    | Second pokemon ID  |
 | 3    | Third pokemon ID   |
 | 4    | Game ID            |
-| 5    | 1 for first player |
+| 5    | Player Number      |
 
 ### 3.3. Attack (type = 2)
 
-Client sends this message to server after chosing an attack.
-Message contains amount of damage done, game ID and player number. If this attack will
-cause the player to win then Game Won byte is set to 1. Basing on this server
+Client sends this message to server after chosing an attack. If this attack will
+cause the player to win then Game Won byte is set to 1. Using this server
 will be able to clean up after game.
 
 | Byte | Content          |
@@ -72,7 +80,6 @@ will be able to clean up after game.
 ### 3.4. Receive Damage (type = 3)
 
 Server sends this message to client after receiving "Attack" message from that player's opponent.
-Message contains amount of damage done.
 
 | Byte | Content          |
 | ---- | ---------------- |
@@ -82,7 +89,6 @@ Message contains amount of damage done.
 ### 3.5. Reconnect (type = 4)
 
 Clients sends this message to server after website is reloaded so server will update connection.
-Player number is 0 for the player which started and 1 for the other one.
 
 | Byte | Content       |
 | ---- | ------------- |
