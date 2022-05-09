@@ -18,15 +18,15 @@ Backend is written in Kotlin + KTOR.
 
 ### 1.1 Frontend Server
 
-#### 1.1.1 Enter "frontend" directory
+- Enter "frontend" directory
 
-#### 1.1.2 Install dependecies
+- Install dependecies
 
 ```bash
 npm install
 ```
 
-#### 1.1.3 Run on local machine
+- Run on local machine
 
 ```bash
 npm run dev
