@@ -36,10 +36,6 @@ export function saveGameState() {
 
 export function restoreGameState() {
 	if (localStorage.getItem('isSaved')) {
-		isReconnecting.set(true);
-		setTimeout(() => {
-			isReconnecting.set(false);
-		}, 1000);
 		myPokemons.set(JSON.parse(localStorage.getItem('myPokemons')));
 		enemyPokemons.set(JSON.parse(localStorage.getItem('enemyPokemons')));
 		currentMyPokemonIndex.set(JSON.parse(localStorage.getItem('currentMyPokemonIndex')));

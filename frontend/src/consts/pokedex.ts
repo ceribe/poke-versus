@@ -1,7 +1,10 @@
+// Returns a copy of pokemon with given id.
 export function getPokemonById(id: number): Pokemon {
 	return Object.assign({}, availablePokemon[id]);
 }
 
+// Returns amount of damage that given attack will do when executed by given attackingPokemon on given defendingPokemon.
+// The formula used is not real. I just made it up and fixed a few times to make it balanced.
 export function calculateDamage(
 	attack: Attack,
 	attackingPokemon: Pokemon,
@@ -15,35 +18,57 @@ export function calculateDamage(
 	if (attackingPokemon.type1 === attack.type || attackingPokemon.type2 === attack.type) {
 		damage *= 1.5;
 	}
-	damage = damage * multipliers.get(attack.type).get(defendingPokemon.type1);
+	damage = damage * multipliers[attack.type][defendingPokemon.type1];
 	if (defendingPokemon.type2 !== Type.None) {
-		damage *= multipliers.get(attack.type).get(defendingPokemon.type2);
+		damage *= multipliers[attack.type][defendingPokemon.type2];
 	}
 	if (damage > 255) damage = 255;
 	return Math.ceil(damage);
 }
 
 export enum Type {
-	None,
-	Grass,
-	Fire,
-	Water,
-	Poison,
-	Flying,
-	Ice,
-	Ghost,
-	Steel,
 	Normal,
 	Fighting,
-	Psychic,
-	Dragon,
-	Fairy,
-	Dark,
-	Rock,
-	Electric,
+	Flying,
+	Poison,
 	Ground,
-	Bug
+	Rock,
+	Bug,
+	Ghost,
+	Steel,
+	Fire,
+	Water,
+	Grass,
+	Electric,
+	Psychic,
+	Ice,
+	Dragon,
+	Dark,
+	Fairy,
+	None
 }
+
+// Matrix of type effectivness. Types are in the same order as in the Type enum.
+const multipliers = [
+	[1, 1, 1, 1, 1, 0.5, 1, 0, 0.5, 1, 1, 1, 1, 1, 1, 1, 1],
+	[2, 1, 0.5, 0.5, 1, 2, 0.5, 0, 2, 1, 1, 1, 1, 0.5, 2, 1, 2, 0.5],
+	[1, 2, 1, 1, 1, 0.5, 2, 1, 0.5, 1, 1, 2, 0.5, 1, 1, 1, 1, 1],
+	[1, 1, 1, 0.5, 0.5, 0.5, 1, 0.5, 0, 1, 1, 2, 1, 1, 1, 1, 1, 2],
+	[1, 1, 0, 2, 1, 2, 0.5, 1, 2, 2, 1, 0.5, 2, 1, 1, 1, 1, 1],
+	[1, 0.5, 2, 1, 0.5, 1, 2, 1, 0.5, 2, 1, 1, 1, 1, 2, 1, 1, 1],
+	[1, 0.5, 0.5, 0.5, 1, 1, 1, 0.5, 0.5, 0.5, 1, 2, 1, 2, 1, 1, 2, 0.5],
+	[0, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 0.5, 1],
+	[1, 1, 1, 1, 1, 2, 1, 1, 0.5, 0.5, 0.5, 1, 0.5, 1, 2, 1, 1, 2],
+	[1, 1, 1, 1, 1, 0.5, 2, 1, 2, 0.5, 0.5, 2, 1, 1, 2, 0.5, 1, 1],
+	[1, 1, 1, 1, 2, 2, 1, 1, 1, 2, 0.5, 0.5, 1, 1, 1, 0.5, 1, 1],
+	[1, 1, 0.5, 0.5, 2, 2, 0.5, 1, 0.5, 0.5, 2, 0.5, 1, 1, 1, 0.5, 1, 1],
+	[1, 1, 2, 1, 0, 1, 1, 1, 1, 1, 2, 0.5, 0.5, 1, 1, 0.5, 1, 1],
+	[1, 2, 1, 2, 1, 1, 1, 1, 0.5, 1, 1, 1, 1, 0.5, 1, 1, 0, 1],
+	[1, 1, 2, 1, 2, 1, 1, 1, 0.5, 0.5, 0.5, 2, 1, 1, 0.5, 2, 1, 1],
+	[1, 1, 1, 1, 1, 1, 1, 0.5, 1, 1, 1, 1, 1, 1, 2, 1, 0],
+	[1, 0.5, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 2, 1, 1, 0.5, 0.5],
+	[1, 2, 1, 0.5, 1, 1, 1, 1, 0.5, 0.5, 1, 1, 1, 1, 1, 2, 2, 1]
+];
 
 export const typeColors = new Map<Type, string>([
 	[Type.Grass, 'bg-green-500'],
@@ -344,419 +369,3 @@ export const availablePokemon: Pokemon[] = [
 		]
 	}
 ];
-
-const multipliers = new Map<Type, Map<Type, number>>([
-	[
-		Type.Normal,
-		new Map([
-			[Type.Normal, 1],
-			[Type.Fighting, 1],
-			[Type.Flying, 1],
-			[Type.Poison, 1],
-			[Type.Ground, 1],
-			[Type.Rock, 0.5],
-			[Type.Bug, 1],
-			[Type.Ghost, 0],
-			[Type.Steel, 0.5],
-			[Type.Fire, 1],
-			[Type.Water, 1],
-			[Type.Grass, 1],
-			[Type.Electric, 1],
-			[Type.Psychic, 1],
-			[Type.Ice, 1],
-			[Type.Dragon, 1],
-			[Type.Dark, 1]
-		])
-	],
-	[
-		Type.Fighting,
-		new Map([
-			[Type.Normal, 2],
-			[Type.Fighting, 1],
-			[Type.Flying, 0.5],
-			[Type.Poison, 0.5],
-			[Type.Ground, 1],
-			[Type.Rock, 2],
-			[Type.Bug, 0.5],
-			[Type.Ghost, 0],
-			[Type.Steel, 2],
-			[Type.Fire, 1],
-			[Type.Water, 1],
-			[Type.Grass, 1],
-			[Type.Electric, 1],
-			[Type.Psychic, 0.5],
-			[Type.Ice, 2],
-			[Type.Dragon, 1],
-			[Type.Dark, 2],
-			[Type.Fairy, 0.5]
-		])
-	],
-	[
-		Type.Flying,
-		new Map([
-			[Type.Normal, 1],
-			[Type.Fighting, 2],
-			[Type.Flying, 1],
-			[Type.Poison, 1],
-			[Type.Ground, 1],
-			[Type.Rock, 0.5],
-			[Type.Bug, 2],
-			[Type.Ghost, 1],
-			[Type.Steel, 0.5],
-			[Type.Fire, 1],
-			[Type.Water, 1],
-			[Type.Grass, 2],
-			[Type.Electric, 0.5],
-			[Type.Psychic, 1],
-			[Type.Ice, 1],
-			[Type.Dragon, 1],
-			[Type.Dark, 1],
-			[Type.Fairy, 1]
-		])
-	],
-	[
-		Type.Poison,
-		new Map([
-			[Type.Normal, 1],
-			[Type.Fighting, 1],
-			[Type.Flying, 1],
-			[Type.Poison, 0.5],
-			[Type.Ground, 0.5],
-			[Type.Rock, 0.5],
-			[Type.Bug, 1],
-			[Type.Ghost, 0.5],
-			[Type.Steel, 0],
-			[Type.Fire, 1],
-			[Type.Water, 1],
-			[Type.Grass, 2],
-			[Type.Electric, 1],
-			[Type.Psychic, 1],
-			[Type.Ice, 1],
-			[Type.Dragon, 1],
-			[Type.Dark, 1],
-			[Type.Fairy, 2]
-		])
-	],
-	[
-		Type.Ground,
-		new Map([
-			[Type.Normal, 1],
-			[Type.Fighting, 1],
-			[Type.Flying, 0],
-			[Type.Poison, 2],
-			[Type.Ground, 1],
-			[Type.Rock, 2],
-			[Type.Bug, 0.5],
-			[Type.Ghost, 1],
-			[Type.Steel, 2],
-			[Type.Fire, 2],
-			[Type.Water, 1],
-			[Type.Grass, 0.5],
-			[Type.Electric, 2],
-			[Type.Psychic, 1],
-			[Type.Ice, 1],
-			[Type.Dragon, 1],
-			[Type.Dark, 1],
-			[Type.Fairy, 1]
-		])
-	],
-	[
-		Type.Rock,
-		new Map([
-			[Type.Normal, 1],
-			[Type.Fighting, 0.5],
-			[Type.Flying, 2],
-			[Type.Poison, 1],
-			[Type.Ground, 0.5],
-			[Type.Rock, 1],
-			[Type.Bug, 2],
-			[Type.Ghost, 1],
-			[Type.Steel, 0.5],
-			[Type.Fire, 2],
-			[Type.Water, 1],
-			[Type.Grass, 1],
-			[Type.Electric, 1],
-			[Type.Psychic, 1],
-			[Type.Ice, 2],
-			[Type.Dragon, 1],
-			[Type.Dark, 1],
-			[Type.Fairy, 1]
-		])
-	],
-	[
-		Type.Bug,
-		new Map([
-			[Type.Normal, 1],
-			[Type.Fighting, 0.5],
-			[Type.Flying, 0.5],
-			[Type.Poison, 0.5],
-			[Type.Ground, 1],
-			[Type.Rock, 1],
-			[Type.Bug, 1],
-			[Type.Ghost, 0.5],
-			[Type.Steel, 0.5],
-			[Type.Fire, 0.5],
-			[Type.Water, 1],
-			[Type.Grass, 2],
-			[Type.Electric, 1],
-			[Type.Psychic, 2],
-			[Type.Ice, 1],
-			[Type.Dragon, 1],
-			[Type.Dark, 2],
-			[Type.Fairy, 0.5]
-		])
-	],
-	[
-		Type.Ghost,
-		new Map([
-			[Type.Normal, 0],
-			[Type.Fighting, 1],
-			[Type.Flying, 1],
-			[Type.Poison, 1],
-			[Type.Ground, 1],
-			[Type.Rock, 1],
-			[Type.Bug, 1],
-			[Type.Ghost, 2],
-			[Type.Steel, 1],
-			[Type.Fire, 1],
-			[Type.Water, 1],
-			[Type.Grass, 1],
-			[Type.Electric, 1],
-			[Type.Psychic, 2],
-			[Type.Ice, 1],
-			[Type.Dragon, 1],
-			[Type.Dark, 0.5],
-			[Type.Fairy, 1]
-		])
-	],
-	[
-		Type.Steel,
-		new Map([
-			[Type.Normal, 1],
-			[Type.Fighting, 1],
-			[Type.Flying, 1],
-			[Type.Poison, 1],
-			[Type.Ground, 1],
-			[Type.Rock, 2],
-			[Type.Bug, 1],
-			[Type.Ghost, 1],
-			[Type.Steel, 0.5],
-			[Type.Fire, 0.5],
-			[Type.Water, 0.5],
-			[Type.Grass, 1],
-			[Type.Electric, 0.5],
-			[Type.Psychic, 1],
-			[Type.Ice, 2],
-			[Type.Dragon, 1],
-			[Type.Dark, 1],
-			[Type.Fairy, 2]
-		])
-	],
-	[
-		Type.Fire,
-		new Map([
-			[Type.Normal, 1],
-			[Type.Fighting, 1],
-			[Type.Flying, 1],
-			[Type.Poison, 1],
-			[Type.Ground, 1],
-			[Type.Rock, 0.5],
-			[Type.Bug, 2],
-			[Type.Ghost, 1],
-			[Type.Steel, 2],
-			[Type.Fire, 0.5],
-			[Type.Water, 0.5],
-			[Type.Grass, 2],
-			[Type.Electric, 1],
-			[Type.Psychic, 1],
-			[Type.Ice, 2],
-			[Type.Dragon, 0.5],
-			[Type.Dark, 1],
-			[Type.Fairy, 1]
-		])
-	],
-	[
-		Type.Water,
-		new Map([
-			[Type.Normal, 1],
-			[Type.Fighting, 1],
-			[Type.Flying, 1],
-			[Type.Poison, 1],
-			[Type.Ground, 2],
-			[Type.Rock, 2],
-			[Type.Bug, 1],
-			[Type.Ghost, 1],
-			[Type.Steel, 1],
-			[Type.Fire, 2],
-			[Type.Water, 0.5],
-			[Type.Grass, 0.5],
-			[Type.Electric, 1],
-			[Type.Psychic, 1],
-			[Type.Ice, 1],
-			[Type.Dragon, 0.5],
-			[Type.Dark, 1],
-			[Type.Fairy, 1]
-		])
-	],
-	[
-		Type.Grass,
-		new Map([
-			[Type.Normal, 1],
-			[Type.Fighting, 1],
-			[Type.Flying, 0.5],
-			[Type.Poison, 0.5],
-			[Type.Ground, 2],
-			[Type.Rock, 2],
-			[Type.Bug, 0.5],
-			[Type.Ghost, 1],
-			[Type.Steel, 0.5],
-			[Type.Fire, 0.5],
-			[Type.Water, 2],
-			[Type.Grass, 0.5],
-			[Type.Electric, 1],
-			[Type.Psychic, 1],
-			[Type.Ice, 1],
-			[Type.Dragon, 0.5],
-			[Type.Dark, 1],
-			[Type.Fairy, 1]
-		])
-	],
-	[
-		Type.Electric,
-		new Map([
-			[Type.Normal, 1],
-			[Type.Fighting, 1],
-			[Type.Flying, 2],
-			[Type.Poison, 1],
-			[Type.Ground, 0],
-			[Type.Rock, 1],
-			[Type.Bug, 1],
-			[Type.Ghost, 1],
-			[Type.Steel, 1],
-			[Type.Fire, 1],
-			[Type.Water, 2],
-			[Type.Grass, 0.5],
-			[Type.Electric, 0.5],
-			[Type.Psychic, 1],
-			[Type.Ice, 1],
-			[Type.Dragon, 0.5],
-			[Type.Dark, 1],
-			[Type.Fairy, 1]
-		])
-	],
-	[
-		Type.Psychic,
-		new Map([
-			[Type.Normal, 1],
-			[Type.Fighting, 2],
-			[Type.Flying, 1],
-			[Type.Poison, 2],
-			[Type.Ground, 1],
-			[Type.Rock, 1],
-			[Type.Bug, 1],
-			[Type.Ghost, 1],
-			[Type.Steel, 0.5],
-			[Type.Fire, 1],
-			[Type.Water, 1],
-			[Type.Grass, 1],
-			[Type.Electric, 1],
-			[Type.Psychic, 0.5],
-			[Type.Ice, 1],
-			[Type.Dragon, 1],
-			[Type.Dark, 0],
-			[Type.Fairy, 1]
-		])
-	],
-	[
-		Type.Ice,
-		new Map([
-			[Type.Normal, 1],
-			[Type.Fighting, 1],
-			[Type.Flying, 2],
-			[Type.Poison, 1],
-			[Type.Ground, 2],
-			[Type.Rock, 1],
-			[Type.Bug, 1],
-			[Type.Ghost, 1],
-			[Type.Steel, 0.5],
-			[Type.Fire, 0.5],
-			[Type.Water, 0.5],
-			[Type.Grass, 2],
-			[Type.Electric, 1],
-			[Type.Psychic, 1],
-			[Type.Ice, 0.5],
-			[Type.Dragon, 2],
-			[Type.Dark, 1],
-			[Type.Fairy, 1]
-		])
-	],
-	[
-		Type.Dragon,
-		new Map([
-			[Type.Normal, 1],
-			[Type.Fighting, 1],
-			[Type.Flying, 1],
-			[Type.Poison, 1],
-			[Type.Ground, 1],
-			[Type.Rock, 1],
-			[Type.Bug, 1],
-			[Type.Ghost, 1],
-			[Type.Steel, 0.5],
-			[Type.Fire, 1],
-			[Type.Water, 1],
-			[Type.Grass, 1],
-			[Type.Electric, 1],
-			[Type.Psychic, 1],
-			[Type.Ice, 1],
-			[Type.Dragon, 2],
-			[Type.Dark, 1],
-			[Type.Fairy, 0]
-		])
-	],
-	[
-		Type.Dark,
-		new Map([
-			[Type.Normal, 1],
-			[Type.Fighting, 0.5],
-			[Type.Flying, 1],
-			[Type.Poison, 1],
-			[Type.Ground, 1],
-			[Type.Rock, 1],
-			[Type.Bug, 1],
-			[Type.Ghost, 2],
-			[Type.Steel, 1],
-			[Type.Fire, 1],
-			[Type.Water, 1],
-			[Type.Grass, 1],
-			[Type.Electric, 1],
-			[Type.Psychic, 2],
-			[Type.Ice, 1],
-			[Type.Dragon, 1],
-			[Type.Dark, 0.5],
-			[Type.Fairy, 0.5]
-		])
-	],
-	[
-		Type.Fairy,
-		new Map([
-			[Type.Normal, 1],
-			[Type.Fighting, 2],
-			[Type.Flying, 1],
-			[Type.Poison, 0.5],
-			[Type.Ground, 1],
-			[Type.Rock, 1],
-			[Type.Bug, 1],
-			[Type.Ghost, 1],
-			[Type.Steel, 0.5],
-			[Type.Fire, 0.5],
-			[Type.Water, 1],
-			[Type.Grass, 1],
-			[Type.Electric, 1],
-			[Type.Psychic, 1],
-			[Type.Ice, 1],
-			[Type.Dragon, 2],
-			[Type.Dark, 2],
-			[Type.Fairy, 1]
-		])
-	]
-]);

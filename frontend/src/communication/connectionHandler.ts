@@ -33,6 +33,13 @@ function onMessage(event: MessageEvent) {
 }
 
 export function initializeConnection() {
+	if (localStorage.getItem('isSaved')) {
+		isReconnecting.set(true);
+		setTimeout(() => {
+			isReconnecting.set(false);
+		}, 1000);
+	}
+
 	websocket = new WebSocket('ws://localhost:8128/pv');
 	websocket.binaryType = 'arraybuffer';
 	websocket.onmessage = onMessage;
@@ -40,13 +47,6 @@ export function initializeConnection() {
 		restoreGameState();
 		websocket.onopen = null;
 	};
-
-	if (localStorage.getItem('isSaved')) {
-		isReconnecting.set(true);
-		setTimeout(() => {
-			isReconnecting.set(false);
-		}, 1000);
-	}
 }
 
 export function joinGame() {
