@@ -31,12 +31,12 @@ both players will have to play fair.
 
 ### 3.0 Values
 
-| Value         | Meaning                                   |
-| ------------- | ----------------------------------------- |
-| Message type  | Value specyfing which message was received |
-| Pokemon ID    | Index specifying a species of pokemon     |
-| Game ID       | Number used to differentiate games         |
-| Player Number | Each game has to players (0 or 1)         |
+| Name          | Meaning                                   | Possible Values |
+| ------------- | ----------------------------------------- | --------------- |
+| Message type  | Value specyfing which message was received | 0..4            |
+| Pokemon ID    | Index specifying a species of pokemon     | 0..24           |
+| Game ID       | Number used to differentiate games         | 0..255          |
+| Player Number | Player with number 1 starts               | 0 or 1          |
 
 ### 3.1. Join Game (type = 0)
 
