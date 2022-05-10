@@ -1,3 +1,4 @@
+import { websocketServerAddress } from '../consts/config';
 import { getPokemonById } from '../consts/pokedex';
 import {
 	currentMyPokemonIndex,
@@ -40,7 +41,7 @@ export function initializeConnection() {
 		}, 1000);
 	}
 
-	websocket = new WebSocket('ws://localhost:8128/pv');
+	websocket = new WebSocket(websocketServerAddress);
 	websocket.binaryType = 'arraybuffer';
 	websocket.onmessage = onMessage;
 	websocket.onopen = () => {
