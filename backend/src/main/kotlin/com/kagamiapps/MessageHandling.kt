@@ -12,14 +12,17 @@ suspend fun processJoinGameMessage(player: Player, bytes: ByteArray) {
     }
     log("Processing join game message. (Pokemon IDs: ${player.pokemonIDs})")
 
-    if (waitingPlayers.size == 2) {
-        val newGameId = getLowestAvailableGameId()
-        log("Creating game. (Game ID: $newGameId)")
-        val game = Game(waitingPlayers.first(), waitingPlayers.last(), newGameId)
-        waitingPlayers.clear()
-        games[newGameId] = game
-        sendOpponentJoinedMessages(game)
+    var game: Game? = null
+    synchronized(waitingPlayers) {
+        if (waitingPlayers.size == 2) {
+            val newGameId = getLowestAvailableGameId()
+            log("Creating game. (Game ID: $newGameId)")
+            game = Game(waitingPlayers.first(), waitingPlayers.last(), newGameId)
+            waitingPlayers.clear()
+            games[newGameId] = game!!
+        }
     }
+    game?.let { sendOpponentJoinedMessages(it) }
 }
 
 suspend fun sendOpponentJoinedMessages(game: Game) {
