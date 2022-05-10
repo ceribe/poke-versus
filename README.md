@@ -6,7 +6,7 @@
 # Introduction
 
 Poké Versus is a simple 1v1 pokemon game I decided to make as my websocket project for an university class.
-Each player using a website connects to the  server via a websocket. Server then connects two players
+Each player uses a website to connect to the server via a websocket. Server then connects two players
 and acts as a middle ground passing messages between them. Server can handle up to 256 concurrent games.
 
 Frontend is written in Svelte. My language of choice was TypeScript. To not have to deal with plain CSS I used TailwindCSS. Game scene is rendered
