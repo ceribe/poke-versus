@@ -5,7 +5,7 @@
 
 # Introduction
 
-Poké Versus is a simple 1v1 pokemon game I decided to make as my websocket project for an university class.
+Poké Versus is a simple 1v1 pokemon game I decided to make as my websocket project for a university class.
 Each player uses a website to connect to the server via a websocket. Server then connects two players
 and acts as a middle ground passing messages between them. Server can handle up to 256 concurrent games.
 
