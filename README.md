@@ -26,6 +26,9 @@ Backend is written in Kotlin + KTOR.
 npm install
 ```
 
+- If game will be played on multiple machines
+set server's IP in config.ts
+
 - Run on local machine
 
 ```bash
