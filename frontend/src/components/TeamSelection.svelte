@@ -1,6 +1,6 @@
 <script>
 	import { myPokemons } from '../stores/gameState';
-	import PokemonCard from '../components/pokemonCard.svelte';
+	import PokemonCard from './PokemonCard.svelte';
 	import { availablePokemon } from '../consts/pokedex';
 	import { joinGame } from '../communication/connectionHandler';
 </script>

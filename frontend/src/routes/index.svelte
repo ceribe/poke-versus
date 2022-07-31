@@ -1,5 +1,5 @@
 <script>
-	import BattleScreen from '../components/battleScreen.svelte';
+	import BattleScreen from '../components/BattleScreen.svelte';
 	import {
 		clearGameState,
 		isInBattle,
@@ -8,7 +8,7 @@
 		opponentLost,
 		playerLost,
 	} from '../stores/gameState';
-	import TeamSelection from '../components/teamSelection.svelte';
+	import TeamSelection from '../components/TeamSelection.svelte';
 	import { onMount } from 'svelte';
 	import { loadModels } from '../stores/models';
 	import { initializeConnection } from '../communication/connectionHandler';

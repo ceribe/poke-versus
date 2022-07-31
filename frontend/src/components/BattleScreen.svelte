@@ -9,8 +9,8 @@
 		myPokemons
 	} from '../stores/gameState';
 	import { models1, models2, arenaModel } from '../stores/models';
-	import AttackButton from './attackButton.svelte';
-	import HealthBar from './healthBar.svelte';
+	import AttackButton from './AttackButton.svelte';
+	import HealthBar from './HealthBar.svelte';
 </script>
 
 <SC.Canvas antialias height={window.innerHeight}>

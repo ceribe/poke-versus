@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { doAttack, isPlayerTurn } from '../stores/gameState';
 	import type { Attack, Type } from '../consts/pokedex';
-	import TypeBanner from './typeBanner.svelte';
+	import TypeBanner from './TypeBanner.svelte';
 
 	export let attack: Attack;
 </script>
