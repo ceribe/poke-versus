@@ -1,7 +1,6 @@
 <script>
 	import * as THREE from 'three';
 	import * as SC from 'svelte-cubed';
-	import { writable } from 'svelte/store';
 	import {
 		currentEnemyPokemonIndex,
 		currentMyPokemonIndex,
