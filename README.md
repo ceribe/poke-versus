@@ -46,6 +46,8 @@ both players will have to play fair.
 
 This is by no means a finished game as there is no animations, sounds and it is even missing some of the core features like swapping to a different pokemon.
 
+It was my first Svelte project so frontend is quite a mess.
+
 I do not own any of the assets used.
 
 # Communitcation protocol
